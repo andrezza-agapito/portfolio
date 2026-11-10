@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dissertação AHP-Fuzzy</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: leitura em uma coluna (método), depois bancada de trabalho em duas colunas (editor à esquerda, resultado fixo à direita) */
+:root{
+  --bg:#f2f6f7; --surface:#ffffff; --surface-2:#e8f0f1; --ink:#0f2327; --ink-2:#455a5f; --ink-3:#6b7f84; --line:#d3e0e2;
+  --accent:#0a7c86; --accent-ink:#ffffff; --accent-soft:#d5ecee;
+  --seq-lo:#e6f2f3; --seq-hi:#0a6b74;
+  --good:#0a7c3a; --warn:#a86400;
+  --c1:#2a78d6; --c2:#eb6834; --c3:#1baf7a; --c4:#eda100; --c5:#e87ba4; --c6:#008300; --c7:#6250d6; --c8:#e34948;
+  --f-display:'Bricolage Grotesque','Inter',system-ui,sans-serif;
+  --f-body:'IBM Plex Sans','Inter',system-ui,sans-serif;
+  --f-mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0c1719; --surface:#122326; --surface-2:#192e32; --ink:#e7f1f2; --ink-2:#a9bfc3; --ink-3:#7f979c; --line:#27403f;
+  --accent:#4cc2cb; --accent-ink:#06191b; --accent-soft:#16363a;
+  --seq-lo:#15292c; --seq-hi:#4cc2cb;
+  --good:#4fc98a; --warn:#e8a64a;
+  --c1:#3987e5; --c2:#d95926; --c3:#199e70; --c4:#c98500; --c5:#d55181; --c6:#2fa02f; --c7:#9085e9; --c8:#e66767;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0c1719; --surface:#122326; --surface-2:#192e32; --ink:#e7f1f2; --ink-2:#a9bfc3; --ink-3:#7f979c; --line:#27403f;
+  --accent:#4cc2cb; --accent-ink:#06191b; --accent-soft:#16363a;
+  --seq-lo:#15292c; --seq-hi:#4cc2cb;
+  --good:#4fc98a; --warn:#e8a64a;
+  --c1:#3987e5; --c2:#d95926; --c3:#199e70; --c4:#c98500; --c5:#d55181; --c6:#2fa02f; --c7:#9085e9; --c8:#e66767;
+  color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.55 var(--f-body);margin:0;padding-block:0 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1040px;margin:0 auto}
+h1,h2,h3{font-family:var(--f-display);letter-spacing:-.01em;text-wrap:balance;margin:0}
+h1{font-size:clamp(34px,6vw,58px);line-height:1.02;font-weight:700}
+h2{font-size:clamp(24px,3.4vw,32px);line-height:1.1;font-weight:700}
+h3{font-size:17px;font-weight:600;line-height:1.25}
+p{margin:0}
+a{color:var(--accent)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+.eyebrow{font:500 12px/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.top{padding-block:clamp(28px,6vw,60px) 24px;display:grid;gap:16px}
+.lead{font-size:clamp(17px,2vw,20px);color:var(--ink-2);max-width:64ch}
+.src{font-size:13px;color:var(--ink-3);max-width:72ch}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:12px;margin-top:6px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;min-width:0}
+.stat b{display:block;font:700 28px/1.1 var(--f-display)}
+.stat span{font-size:13px;color:var(--ink-2)}
+section{padding-block:36px 8px}
+.sec-head{display:grid;gap:8px;margin-bottom:18px}
+.sec-head p{color:var(--ink-2);max-width:68ch}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;min-width:0}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px}
+.grid2>*{min-width:0}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{padding:7px 8px;text-align:center;border-bottom:1px solid var(--line)}
+th:first-child,td:first-child{text-align:left}
+th{font:500 12px/1.2 var(--f-mono);color:var(--ink-3);letter-spacing:.04em}
+caption{text-align:left;font-weight:600;padding-bottom:8px;font-size:14px}
+.tw{overflow-x:auto}
+.hint{font-size:13px;color:var(--ink-3)}
+.badge{display:inline-block;font:500 12px/1 var(--f-mono);padding:5px 8px;border-radius:999px;background:var(--accent-soft);color:var(--ink)}
+.ok{color:var(--good)}
+.tree{display:grid;gap:14px}
+.crit{border-left:4px solid var(--accent);padding-left:14px;display:grid;gap:8px}
+.crit .row{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
+.sub{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,2fr) auto;gap:10px;align-items:center;font-size:14px}
+.track{height:10px;border-radius:6px;background:var(--surface-2);overflow:hidden;position:relative}
+.track i{position:absolute;inset:0 auto 0 0;background:var(--accent);border-radius:6px}
+.pcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px}
+.pcard{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:grid;gap:6px;min-width:0}
+.pcard .code{font:700 22px/1 var(--f-display)}
+.pcard p{font-size:14px;color:var(--ink-2)}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.chart{width:100%;height:auto;display:block}
+.chart text{font-family:var(--f-body);fill:var(--ink-2)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--ink-2);margin-bottom:8px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.btn{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 14px;cursor:pointer;min-height:40px}
+.btn:hover{border-color:var(--accent)}
+.btn[aria-pressed=true]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.small{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px}
+.small>*{min-width:0}
+.notes{display:grid;gap:12px;max-width:72ch;color:var(--ink-2)}
+.notes b{color:var(--ink)}
+.rank{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;font-size:14px}
+.rank span{background:var(--surface-2);border-radius:8px;padding:4px 10px}
+.cta{background:var(--accent-soft);border:1px solid var(--line);border-radius:14px;padding:20px;display:grid;gap:10px}
+.mats{grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr))}
+footer{margin-top:40px;font-size:13px;color:var(--ink-3)}
+</style>
+<style>
+/* === navegação e faixas de cor por seção (compartilhado entre as três páginas) === */
+/* faixas alternadas: branco e o teal do painel (#50a1a9) */
+:root{--b1:#dcecee;--bw:#ffffff;--bt:#50a1a9;--s1:#50a1a9;--tx:#0d2733;--tx2:#0f2f38;--navh:64px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--b1:#16363a;--bw:#0e222b;--bt:#1f5a61;--s1:#4cc3cc;--tx:#e9f3f4;--tx2:#d3e6e9}}
+:root[data-theme="dark"]{--b1:#16363a;--bw:#0e222b;--bt:#1f5a61;--s1:#4cc3cc;--tx:#e9f3f4;--tx2:#d3e6e9}
+:root{overflow-x:clip}body{overflow-x:clip;margin:0}
+.snav{position:sticky;top:0;z-index:40;background:var(--surface);box-shadow:0 0 0 100vmax var(--surface);clip-path:inset(0 -100vmax)}
+.snav::after{content:"";position:absolute;left:-100vmax;right:-100vmax;bottom:0;height:1px;background:var(--line)}
+.snav-in{display:flex;align-items:center;gap:10px 24px;flex-wrap:wrap;padding-block:10px}
+.snav .brand{font-family:var(--font-display,var(--f-display,inherit));font-size:18px;font-weight:700;color:var(--ink);text-decoration:none;white-space:nowrap}
+.snav nav{display:flex;align-items:center;gap:6px;flex:1 1 auto;min-width:0;overflow-x:auto;scrollbar-width:none;padding-block:2px}
+.snav nav::-webkit-scrollbar{display:none}
+.snav nav a{flex:0 0 auto;font-size:14px;line-height:1;color:var(--ink);text-decoration:none;padding:8px 12px;border:1.5px solid transparent;border-radius:6px;white-space:nowrap}
+.snav nav a:hover{background:var(--b1);border-color:var(--line)}
+.snav nav a[aria-current]{background:var(--b1);border-color:var(--s1);font-weight:600}
+.snav .sep{flex:0 0 1px;align-self:stretch;background:var(--line);margin:4px 6px}
+@media (min-width:900px){.snav nav{justify-content:flex-end}}
+.wrap>section{position:relative;margin:0;padding-block:clamp(40px,6vw,72px);box-shadow:0 0 0 100vmax var(--band,transparent);clip-path:inset(0 -100vmax);background:var(--band,transparent);scroll-margin-top:var(--navh)}
+.wrap>section::before{content:"";position:absolute;left:-100vmax;right:-100vmax;top:0;height:3px;background:var(--sa,var(--accent))}
+.wrap>section:nth-of-type(odd){--band:var(--bw);--sa:var(--bt)}
+.wrap>section:nth-of-type(odd){--band:var(--bw);--sa:var(--bt)}
+.wrap>section:nth-of-type(even){--band:var(--bt);--sa:var(--bw)}
+/* texto direto sobre o teal fica branco; o que está dentro de cartões continua escuro */
+.wrap>section:nth-of-type(even)>:is(h1,h2,h3,p,.eyebrow,.label,.hint,.sec-head),
+.wrap>section:nth-of-type(even)>.sec-head :is(h1,h2,h3,p,span,div,.label,.eyebrow){color:#fff}
+.wrap>section:nth-of-type(even)>:is(p,.sec-head) a:not(.btn){color:#fff;text-decoration-thickness:1.5px}
+.wrap>section:nth-of-type(even)>:is(p,.sec-head) :is(b,strong){color:#fff}
+.wrap>section:nth-of-type(even) .contact :is(h2,h3){color:#f2f8f9}
+.results{top:calc(var(--navh) + 12px)!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="snav"><div class="snav-in"><a class="brand" href="index.html">Andrezza Agápito</a><nav aria-label="Principal"><a href="index.html">Portfólio</a><a href="dissertacao.html" aria-current="page">Dissertação</a><a href="priorizador.html">Priorizador</a></nav></div></header>
+<header class="top">
+  <div class="eyebrow">Dissertação de mestrado · UFF · 2017</div>
+  <h1>Priorização de projetos de P&amp;D com AHP e lógica fuzzy</h1>
+  <p class="lead">Como uma instituição de ciência e tecnologia pode decidir quais projetos merecem prioridade sem depender de impressões? Esta página reproduz o estudo de caso da dissertação, com os mesmos critérios, os mesmos pesos e os resultados publicados.</p>
+  <p class="src">Andrezza Agápito, "Utilização de análise multicritério e lógica fuzzy na gestão do portfólio de projetos de uma instituição de ciência, tecnologia e inovação" (Engenharia de Produção e Sistemas Computacionais, UFF, 2017). Os nomes dos projetos são reservados na dissertação e aparecem aqui só pelas siglas.</p>
+  <div class="stats">
+    <div class="stat"><b>2 + 6</b><span>critérios e subcritérios</span></div>
+    <div class="stat"><b>5</b><span>projetos de P&amp;D ranqueados</span></div>
+    <div class="stat"><b class="mono" id="rstat">0,96</b><span>correlação entre AHP clássico e AHP+Fuzzy</span></div>
+    <div class="stat"><b>&gt; 90%</b><span>de concordância de 10 especialistas na validação</span></div>
+  </div>
+</header>
+
+<section id="problema">
+  <div class="sec-head">
+    <h2>O problema</h2>
+    <p>O AHP clássico compara as alternativas duas a duas dentro de cada critério. Com cinco projetos isso é viável, mas o número de comparações cresce com o quadrado da quantidade de projetos, e o resultado carrega a impressão subjetiva de quem compara. A proposta foi um método híbrido: o <b>AHP</b> define os pesos dos critérios, que são julgamento de gestão, e a <b>lógica fuzzy</b> dá a nota de cada projeto a partir de indicadores de desempenho, sem comparar projeto com projeto. O AHP clássico foi aplicado aos cinco projetos só para validar o método novo.</p>
+  </div>
+</section>
+
+<section id="pesos">
+  <div class="sec-head">
+    <h2>1. Critérios e pesos</h2>
+    <p>Cinco especialistas responderam ao questionário de comparação par a par na escala de Saaty. Um deles, com 18 anos de pesquisa na instituição e função estratégica na gestão do sistema de ciência e tecnologia da Marinha, foi o respondente principal, e os demais serviram de parâmetro de validação. O peso final de cada subcritério é o peso do critério multiplicado pelo peso dele dentro do critério. Abaixo, tudo é recalculado das matrizes publicadas.</p>
+  </div>
+  <div class="grid2">
+    <div class="panel"><div class="tree" id="tree"></div></div>
+    <div class="panel"><svg id="wsvg" class="chart" role="img" aria-label="Peso global de cada subcritério"></svg><p class="hint" style="margin-top:8px" id="wnote"></p></div>
+  </div>
+  <div class="grid2 mats" style="margin-top:16px" id="mats"></div>
+</section>
+
+<section id="projetos">
+  <div class="sec-head">
+    <h2>2. Os cinco projetos</h2>
+    <p>Descrições resumidas do que a dissertação publica. Os indicadores de desempenho de cada projeto, que alimentam o modelo fuzzy, são reservados e não constam do trabalho.</p>
+  </div>
+  <div class="pcards" id="pcards"></div>
+</section>
+
+<section id="resultado">
+  <div class="sec-head">
+    <h2>3. Resultado global</h2>
+    <p>As barras são recalculadas aqui: nota de cada projeto em cada subcritério (publicada nas figuras 25 a 30) multiplicada pelo peso do subcritério e normalizada entre os projetos. Com os pesos originais, o resultado coincide com a Figura 24 da dissertação.</p>
+  </div>
+  <div class="panel">
+    <div class="legend"><span><i style="background:var(--ink-3)"></i>AHP clássico</span><span><i style="background:var(--accent)"></i>AHP + Fuzzy</span></div>
+    <svg id="gsvg" class="chart" role="img" aria-label="Resultado global por projeto, AHP clássico e AHP mais fuzzy"></svg>
+    <div class="rank" id="rank"></div>
+    <div style="margin-top:18px;display:grid;gap:8px">
+      <label for="wend"><b>Teste de sensibilidade:</b> peso do critério <i>Alinhamento com a END</i> = <span class="mono" id="wendv">75%</span> (original: 75%)</label>
+      <input type="range" id="wend" min="0" max="100" step="1" value="75">
+      <div class="row"><button class="btn" id="wreset">Voltar aos pesos da dissertação</button><span class="hint" id="diffnote"></span></div>
+    </div>
+  </div>
+  <details style="margin-top:12px"><summary>Ver como tabela</summary>
+    <div class="tw panel" style="margin-top:8px"><table id="gtab"></table></div>
+  </details>
+</section>
+
+<section id="sub">
+  <div class="sec-head">
+    <h2>4. Onde os métodos divergem</h2>
+    <p>Resultado de cada projeto em cada subcritério, como publicado. O clássico tende a concentrar a nota em um ou dois projetos. O híbrido, alimentado por indicadores, distribui de forma mais homogênea. Os subcritérios com maior diferença são Recursos Financeiros, Capacidade de Gestão e Relacionamento com a Sociedade.</p>
+  </div>
+  <div class="small" id="small"></div>
+</section>
+
+<section id="corr">
+  <div class="sec-head">
+    <h2>5. Os métodos concordam?</h2>
+    <p>Os dois métodos ordenam os projetos de forma parecida: só PP e PM trocam de posição (PP é o 4º no clássico e o 5º no híbrido, e PM o contrário). A correlação de Pearson entre os dois resultados globais, calculada aqui a partir da Figura 24, é <b class="mono" id="rr">0,965</b>, o 0,964 que a dissertação reporta na conclusão.</p>
+  </div>
+  <div class="panel hint">Uma observação de leitor: a seção 5.4.2 do texto menciona "60% de correlação", mas a conclusão e os números da Figura 24 apontam 0,964. Esta página adota 0,964. Com cinco pontos, a correlação é um indicador de coerência, não uma prova estatística.</div>
+</section>
+
+<section id="notas">
+  <div class="sec-head"><h2>Validação, limites e próximos passos</h2></div>
+  <div class="notes">
+    <p><b>Validação.</b> Os critérios e o resultado final foram avaliados por 10 especialistas, em questionário de escala Likert, com concordância (parcial ou total) acima de 90%.</p>
+    <p><b>O que esta página reproduz e o que não.</b> Os critérios, as matrizes, os pesos e os resultados por subcritério e global são os publicados. As notas fuzzy por projeto saíram de 12 sistemas Mamdani encadeados, alimentados por 18 indicadores de desempenho reservados da instituição. Como esses indicadores não são públicos, não é possível reproduzir as notas a partir das entradas. É possível reproduzir o ranking a partir delas, e é isso que o teste acima faz.</p>
+    <p><b>Limites.</b> Cinco projetos, uma instituição e um respondente principal. Os autores do método sugerem estendê-lo a outras instituições, estudar os indicadores usados como entrada e testar outros modelos de inferência. A implementação original era em MatLab, e uma versão em software livre foi apontada como trabalho futuro.</p>
+  </div>
+  <div class="cta" style="margin-top:20px">
+    <h3>Quer aplicar o método aos seus projetos?</h3>
+    <p>O Priorizador AHP-Fuzzy é a ferramenta genérica: você define seus critérios, subcritérios, pesos e indicadores, e o ranking sai das suas escolhas.</p>
+    <div><a class="btn" style="display:inline-block;text-decoration:none;background:var(--accent);color:var(--accent-ink);border-color:var(--accent)" href="priorizador.html">Abrir o Priorizador AHP-Fuzzy</a></div>
+  </div>
+</section>
+<footer>Reprodução dos resultados publicados em 2017. Os pesos dependem de cada instituição e de seus objetivos.</footer>
+</div>
+<script>
+const P=['PS','PC','PB','PP','PM'];
+const SUB=['Recursos Financeiros','Capacidade de Gestão','Capacidade Técnica','Alinhamento com a END','Relacionamento com a Sociedade','Potencial para Gerar Inovação'];
+const CRIT=['Potencial de Realização','Alinhamento com a END (estratégico)'];
+const fmt=(x,d=1)=>x.toFixed(d).replace('.',',');
+const RI3=0.525;
+function ahp(M){const n=M.length;let v=Array(n).fill(1/n);for(let it=0;it<300;it++){const w=M.map(r=>r.reduce((s,a,j)=>s+a*v[j],0));const s=w.reduce((a,b)=>a+b,0);v=w.map(x=>x/s)}
+ const Mv=M.map(r=>r.reduce((s,a,j)=>s+a*v[j],0));const lam=Mv.reduce((s,x,i)=>s+x/v[i],0)/n;const ci=(lam-n)/(n-1);return{w:v,cr:n<3?0:ci/RI3}}
+const M1=[[1,1/3],[3,1]], M2=[[1,1/3,2],[3,1,3],[1/2,1/3,1]], M3=[[1,9,4],[1/9,1,1/4],[1/4,4,1]];
+const A1=ahp(M1),A2=ahp(M2),A3=ahp(M3);
+const SUBIN=[...A2.w,...A3.w];
+const PUB23=[6.2,14.2,3.9,54.1,5.0,16.4];
+// resultados publicados por subcritério, ordem PS,PC,PB,PP,PM
+const H=[[13,13,15,22,29],[24,13,17,24,28],[24,24,17,24,28],[24,13,2,3,3],[13,24,17,24,8],[1,13,32,2,3]];
+const C=[[50.5,29.2,11.1,5.5,3.7],[55.8,26.1,10.3,4.4,3.3],[54.2,11.3,25.9,3.2,5.4],[44.6,33.3,3.2,11.4,7.5],[6.3,7.7,68.4,7.6,10.1],[5.0,28.0,55.4,4.0,8.5]];
+const PUBG={c:[38.46,28.97,17.41,8.30,6.87],h:[30.7,22.0,17.7,14.3,15.3]};
+const DESC={
+ PS:['Melhorias do produto mais antigo do instituto','Otimiza a análise de dados do ambiente marinho para as necessidades operacionais da Marinha. Interesse estratégico.'],
+ PC:['Projeto longo e complexo','Alto investimento em infraestrutura, com recurso da FINEP por ação transversal, vários projetos menores e depósito de patente. Interesse estratégico. Na metade do prazo.'],
+ PB:['Produto biotecnológico','Projeto longo, com alta integração acadêmica (bolsistas de mestrado e doutorado), captação de fomento (CNPq, FAPERJ) e patente concedida. Não atende diretamente a projetos estratégicos da Marinha.'],
+ PP:['Banco de dados operacional','Projeto de média duração, que elabora um banco de dados para as necessidades operacionais da Marinha. Interesse estratégico.'],
+ PM:['Projeto novo, de baixo custo','Pouco recurso financeiro, pois a estrutura de laboratório existente atende. Não atende diretamente a projetos estratégicos da Marinha.']};
+const $=id=>document.getElementById(id);
+const NS='http://www.w3.org/2000/svg';
+function wts(s){return SUBIN.map((w,i)=>w*(i<3?1-s:s))}
+function glob(D,w){const r=P.map((_,p)=>D.reduce((a,row,i)=>a+row[p]*w[i],0));const t=r.reduce((a,b)=>a+b,0);return r.map(x=>100*x/t)}
+
+// 1. árvore
+(function(){
+ const w0=wts(.75);const t=$('tree');
+ [0,1].forEach(c=>{const cw=c?A1.w[1]:A1.w[0];const idx=c?[3,4,5]:[0,1,2];
+  const d=document.createElement('div');d.className='crit';
+  d.innerHTML='<div class="row"><h3>'+CRIT[c]+'</h3><span class="mono"><b>'+fmt(cw*100,0)+'%</b></span></div>'+
+   idx.map(i=>'<div class="sub"><span>'+SUB[i]+'</span><div class="track"><i style="width:'+(SUBIN[i]*100)+'%"></i></div><span class="mono">'+fmt(SUBIN[i]*100)+'% <span class="hint">→ '+fmt(w0[i]*100)+'%</span></span></div>').join('');
+  t.appendChild(d)});
+ const n=document.createElement('p');n.className='hint';n.textContent='Primeiro número: peso dentro do critério. Depois da seta: peso global.';t.appendChild(n);
+})();
+// pesos globais svg
+(function(){
+ const w0=wts(.75).map(x=>x*100);const svg=$('wsvg');svg.setAttribute('viewBox','0 0 480 290');
+ const order=[...w0.keys()].sort((a,b)=>w0[b]-w0[a]);let h='';
+ order.forEach((i,k)=>{const y=14+k*44;const bw=w0[i]/60*270;
+  h+='<text x="0" y="'+(y+9)+'" font-size="12">'+SUB[i]+'</text>';
+  h+='<rect x="0" y="'+(y+16)+'" width="'+bw+'" height="14" rx="3" fill="var(--accent)"/>';
+  h+='<text x="'+(bw+8)+'" y="'+(y+28)+'" font-size="13" font-weight="600" style="fill:var(--ink)">'+fmt(w0[i])+'%</text>';
+  h+='<text x="'+(bw+60)+'" y="'+(y+28)+'" font-size="11" style="fill:var(--ink-3)">publicado: '+fmt(PUB23[i])+'%</text>'});
+ svg.innerHTML=h;
+ $('wnote').textContent='Peso global recalculado das matrizes, e o valor da Figura 23 da dissertação ao lado. As diferenças são de arredondamento (a maior é de 0,7 ponto percentual, em Capacidade de Gestão).';
+})();
+// matrizes
+(function(){
+ const specs=[['Tabela 15 · Critérios',['Potencial de Realização','Alinhamento com a END'],M1,A1],
+  ['Tabela 16 · Potencial de Realização',['Rec. Financeiros','Cap. de Gestão','Cap. Técnica'],M2,A2],
+  ['Tabela 17 · Alinhamento Estratégico',['Alinham. END','Relac. Sociedade','Pot. Inovação'],M3,A3]];
+ const fr=x=>{if(Math.abs(x-1)<1e-9)return '1';if(x>1)return String(Math.round(x));const k=Math.round(1/x);return '1/'+k};
+ specs.forEach(([t,names,M,A])=>{
+  const d=document.createElement('div');d.className='panel tw';
+  d.innerHTML='<table><caption>'+t+'</caption><thead><tr><th></th>'+names.map(n=>'<th>'+n+'</th>').join('')+'<th>PESO</th></tr></thead><tbody>'+
+  M.map((r,i)=>'<tr><td>'+names[i]+'</td>'+r.map(x=>'<td class="mono">'+fr(x)+'</td>').join('')+'<td class="mono"><b>'+fmt(A.w[i]*100)+'%</b></td></tr>').join('')+
+  '</tbody></table><p class="hint" style="margin-top:8px">Razão de consistência: <b class="mono ok">'+fmt(A.cr*100)+'%</b> '+(A.cr<0.1?'(abaixo de 10%)':'')+'</p>'+(t.startsWith('Tabela 15')?'<p class="hint" style="margin-top:6px">Nota: o texto da dissertação imprime esta matriz com as linhas trocadas. A captura da calculadora BPMSG nos anexos (Alinhamento 75%, Potencial 25%) e a Figura 23 confirmam o sentido usado aqui.</p>':'');
+  $('mats').appendChild(d)});
+})();
+// projetos
+P.forEach(p=>{const d=document.createElement('div');d.className='pcard';
+ d.innerHTML='<div class="code">'+p+'</div><h3>'+DESC[p][0]+'</h3><p>'+DESC[p][1]+'</p>';$('pcards').appendChild(d)});
+
+// gráfico de barras agrupadas
+function groups(svg,labels,series,o){ // series:[{name,vals,color}]
+ const W=o.W,Hh=o.H,pl=8,pr=8,pt=22,pb=28;const iw=W-pl-pr,ih=Hh-pt-pb;
+ const max=o.max;const gw=iw/labels.length;const bw=Math.min(o.bw||34,(gw-14)/series.length);
+ let h='<line x1="'+pl+'" x2="'+(W-pr)+'" y1="'+(pt+ih)+'" y2="'+(pt+ih)+'" stroke="var(--line)"/>';
+ labels.forEach((l,i)=>{const cx=pl+gw*i+gw/2;const x0=cx-bw*series.length/2;
+  series.forEach((s,k)=>{const v=s.vals[i];const bh=Math.max(1,v/max*ih);const x=x0+k*bw;
+   h+='<rect x="'+x+'" y="'+(pt+ih-bh)+'" width="'+(bw-2)+'" height="'+bh+'" rx="3" fill="'+s.color+'"><title>'+l+' · '+s.name+': '+fmt(v)+'%</title></rect>';
+   h+='<text x="'+(x+(bw-2)/2)+'" y="'+(pt+ih-bh-5)+'" font-size="'+(o.fs||11)+'" text-anchor="middle" style="fill:var(--ink)">'+(o.d==='auto'?(Number.isInteger(v)?String(v):fmt(v)):fmt(v,o.d??1))+'</text>'});
+  h+='<text x="'+cx+'" y="'+(Hh-8)+'" font-size="12" text-anchor="middle" font-weight="600">'+l+'</text>'});
+ svg.setAttribute('viewBox','0 0 '+W+' '+Hh);svg.innerHTML=h;
+}
+const GREY='var(--ink-3)',ACC='var(--accent)';
+let sEnd=.75;
+function renderGlobal(){
+ const w=wts(sEnd);const gc=glob(C,w),gh=glob(H,w);
+ groups($('gsvg'),P,[{name:'AHP clássico',vals:gc,color:GREY},{name:'AHP + Fuzzy',vals:gh,color:ACC}],(innerWidth<600?{W:340,H:280,max:Math.max(45,...gc,...gh)*1.08,bw:22,fs:12}:{W:640,H:300,max:Math.max(45,...gc,...gh)*1.08,bw:36,fs:12}));
+ const rk=(v)=>P.map((p,i)=>[p,v[i]]).sort((a,b)=>b[1]-a[1]).map(x=>x[0]).join(' › ');
+ $('rank').innerHTML='<span><b>Clássico:</b> '+rk(gc)+'</span><span><b>AHP + Fuzzy:</b> '+rk(gh)+'</span>';
+ $('wendv').textContent=Math.round(sEnd*100)+'%';
+ const dm=Math.max(...gc.map((x,i)=>Math.abs(x-PUBG.c[i])),...gh.map((x,i)=>Math.abs(x-PUBG.h[i])));
+ $('diffnote').textContent=Math.round(sEnd*100)===75?'Com os pesos originais, a maior diferença para a Figura 24 é de '+fmt(dm)+' ponto percentual (arredondamento das figuras).':'Pesos alterados: este é um teste, não o resultado da dissertação.';
+ $('gtab').innerHTML='<thead><tr><th>Projeto</th><th>Clássico (recalc.)</th><th>Clássico (Fig. 24)</th><th>AHP+Fuzzy (recalc.)</th><th>AHP+Fuzzy (Fig. 24)</th></tr></thead><tbody>'+P.map((p,i)=>'<tr><td>'+p+'</td><td class="mono">'+fmt(gc[i])+'%</td><td class="mono">'+fmt(PUBG.c[i],2)+'%</td><td class="mono">'+fmt(gh[i])+'%</td><td class="mono">'+fmt(PUBG.h[i])+'%</td></tr>').join('')+'</tbody>';
+}
+$('wend').addEventListener('input',e=>{sEnd=e.target.value/100;renderGlobal()});
+$('wreset').addEventListener('click',()=>{sEnd=.75;$('wend').value=75;renderGlobal()});
+renderGlobal();
+// pequenos múltiplos
+SUB.forEach((s,i)=>{const d=document.createElement('div');d.className='panel';
+ d.innerHTML='<h3 style="margin-bottom:8px">'+(i+1)+'. '+s+'</h3><svg class="chart" role="img" aria-label="'+s+': clássico e fuzzy por projeto"></svg>';
+ $('small').appendChild(d);
+ groups(d.querySelector('svg'),P,[{name:'AHP clássico',vals:C[i],color:GREY},{name:'AHP + Fuzzy',vals:H[i],color:ACC}],{W:320,H:190,max:76,bw:19,fs:11,d:'auto'});
+});
+$('small').insertAdjacentHTML('beforebegin','<div class="legend"><span><i style="background:var(--ink-3)"></i>AHP clássico</span><span><i style="background:var(--accent)"></i>AHP + Fuzzy</span></div>');
+// correlação
+(function(){const a=PUBG.c,b=PUBG.h,n=5,ma=a.reduce((x,y)=>x+y)/n,mb=b.reduce((x,y)=>x+y)/n;
+ let sab=0,sa=0,sb=0;for(let i=0;i<n;i++){sab+=(a[i]-ma)*(b[i]-mb);sa+=(a[i]-ma)**2;sb+=(b[i]-mb)**2}
+ const r=sab/Math.sqrt(sa*sb);$('rr').textContent=r.toFixed(3).replace('.',',');$('rstat').textContent='0,964'})();
+
+addEventListener('resize',renderGlobal);
+
+</script>
+</body>
+</html>

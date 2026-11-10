@@ -1,0 +1,712 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Portfólio Andrezza Agápito</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: ficha técnica de campo. Texto à esquerda e tela real do WaMoS à direita no topo, projetos como fichas com rótulo/valor. */
+:root{
+  --bg:#f2f6f7;
+  --surface:#ffffff;
+  --ink:#0d2733;
+  --muted:#4d6671;
+  --line:#c9d6db;
+  --accent:#0a7c86;
+  --accent-ink:#ffffff;
+  --trace:#0a7c86;
+  --grid:#d5e0e4;
+  --font-display:"Bricolage Grotesque","Arial Narrow",Arial,sans-serif;
+  --font-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#08171e;--surface:#0e222b;--ink:#e6f0f3;--muted:#9bb3bc;--line:#223c47;
+    --accent:#4cc3cc;--accent-ink:#06191f;--trace:#4cc3cc;--grid:#173039;color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#08171e;--surface:#0e222b;--ink:#e6f0f3;--muted:#9bb3bc;--line:#223c47;
+  --accent:#4cc3cc;--accent-ink:#06191f;--trace:#4cc3cc;--grid:#173039;color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{
+  background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:17px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:0;
+}
+.wrap{max-width:1040px;margin:0 auto}
+a{color:var(--accent);text-underline-offset:3px}
+a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:2px}
+h1,h2,h3{font-family:var(--font-display);line-height:1.08;text-wrap:balance;margin:0}
+.mono{font-family:var(--font-mono)}
+.label{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+
+/* topo */
+.bar{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;padding-block:20px}
+.bar strong{font-family:var(--font-display);font-size:18px;font-weight:700}
+.bar nav{display:flex;gap:20px;flex-wrap:wrap;font-size:15px}
+.bar nav a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line)}
+.bar nav a:hover{border-color:var(--accent)}
+
+/* hero */
+.hero{padding-block:clamp(28px,6vw,72px) 8px}
+.hero h1{font-size:clamp(32px,5.6vw,62px);font-weight:700;letter-spacing:-.02em;white-space:nowrap}
+.hero h1 .h1sub{display:block;white-space:normal;font-family:var(--font-body);font-weight:400;font-size:clamp(20px,2.6vw,30px);letter-spacing:0;line-height:1.25;color:var(--ink);margin-top:14px}
+.hero p.lead{font-size:clamp(18px,2.2vw,22px);max-width:56ch;color:var(--muted);margin:24px 0 0}
+.hero p.lead b{color:var(--ink);font-weight:500}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin:28px 0 0;padding:0;list-style:none}
+.tags li{font-family:var(--font-mono);font-size:13px;border:1px solid var(--line);padding:5px 10px;border-radius:3px;background:var(--surface)}
+
+.record{margin-top:44px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--surface)}
+.record canvas{display:block;width:100%;height:190px}
+.record figcaption{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:10px 14px;border-top:1px solid var(--line)}
+.record{margin-inline:0}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(24px,4vw,48px);align-items:start}
+.hero-copy{min-width:0}
+.hero .record{margin-top:0;border:1px solid var(--line);border-radius:4px;overflow:hidden}
+.record img{display:block;width:100%;height:auto}
+@media (max-width:860px){.hero-grid{grid-template-columns:minmax(0,1fr)}.hero .record{margin-top:32px}}
+
+/* fotos discretas: miniaturas pequenas ao pé da ficha */
+.gallery{display:flex;flex-wrap:wrap;gap:16px;padding:14px 24px 18px;border-top:1px solid var(--line)}
+.gallery figure{margin:0;flex:0 0 132px;min-width:0}
+.gallery img{display:block;width:132px;height:99px;object-fit:cover;border-radius:3px;opacity:.88;border:1px solid var(--line)}
+.gallery img.top{object-position:50% 30%}
+.gallery figcaption{margin-top:6px;font-size:12px;line-height:1.35;color:var(--muted)}
+
+/* seções */
+section{padding-block:clamp(48px,8vw,96px) 0}
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:28px}
+.sec-head h2{font-size:clamp(28px,4.4vw,44px);font-weight:700;letter-spacing:-.01em}
+
+/* fichas de projeto */
+.sheet{background:var(--surface);border:1px solid var(--line);border-radius:4px;margin-bottom:24px}
+.sheet[id]{scroll-margin-top:calc(var(--navh,64px) + 12px)}
+.sheet header{padding:22px 24px 18px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:12px 24px;flex-wrap:wrap;align-items:baseline}
+.sheet h3{font-size:clamp(22px,3vw,30px);font-weight:700;max-width:28ch}
+.sheet .when{white-space:nowrap}
+.sheet .body{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:0}
+.sheet .what{padding:22px 24px;min-width:0}
+.sheet .what p{margin:0 0 14px;max-width:62ch}
+.sheet .what ul{margin:0;padding-left:1.1em}
+.sheet .what li{margin-bottom:8px;max-width:62ch}
+.sheet dl{margin:0;padding:22px 24px;border-left:1px solid var(--line);min-width:0;display:grid;gap:16px;align-content:start}
+.sheet dt{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.sheet dd{margin:0;font-size:15px}
+@media (max-width:760px){
+  .sheet .body{grid-template-columns:minmax(0,1fr)}
+  .sheet dl{border-left:0;border-top:1px solid var(--line)}
+}
+
+/* trajetória */
+.path{display:grid;gap:0;border-top:1px solid var(--line)}
+.path div{display:grid;grid-template-columns:150px minmax(0,1fr);gap:8px 24px;padding:16px 0;border-bottom:1px solid var(--line)}
+.path .label{padding-top:4px}
+.path b{font-weight:600}
+.path span.sub{display:block;color:var(--muted);font-size:15px}
+@media (max-width:560px){.path div{grid-template-columns:minmax(0,1fr)}}
+
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px}
+@media (max-width:760px){.two{grid-template-columns:minmax(0,1fr)}}
+.two p,.two li{max-width:56ch}
+.two ul{padding-left:1.1em;margin:0}
+.two li{margin-bottom:8px}
+
+/* contato */
+.contact{background:var(--ink);color:var(--bg);border-radius:4px;padding:clamp(28px,5vw,56px)}
+.contact h2{font-size:clamp(28px,4.4vw,44px);max-width:20ch}
+.contact p{max-width:52ch;margin:16px 0 24px;opacity:.85}
+.contact .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.contact a.btn,.contact button{font:inherit;font-weight:500;background:var(--accent);color:var(--accent-ink);border:0;padding:12px 18px;border-radius:3px;text-decoration:none;cursor:pointer}
+.contact code{font-family:var(--font-mono);font-size:15px;background:rgba(127,127,127,.22);padding:10px 12px;border-radius:3px;user-select:all;overflow-wrap:anywhere}
+.contact a.ghost{color:var(--bg);text-underline-offset:4px}
+footer{padding-block:28px max(28px,env(safe-area-inset-bottom,0px));display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:14px}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+
+/* Painel PNBOIA */
+.lede{max-width:70ch;color:var(--muted);margin:-8px 0 20px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:4px}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;padding:14px 16px;border-bottom:1px solid var(--line)}
+.tabs button,.seg button{font:500 13px var(--font-mono);color:var(--muted);background:transparent;border:1px solid var(--line);border-radius:3px;padding:8px 12px;min-height:40px;cursor:pointer}
+.tabs button[aria-pressed="true"],.seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.tabs button:focus-visible,.seg button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.pn-meta{padding:14px 16px 4px;display:flex;flex-wrap:wrap;gap:4px 16px;font-size:14px;color:var(--muted)}
+.pn-meta b{color:var(--ink);font-weight:600}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));border-top:1px solid var(--line);margin:12px 0 0;overflow:hidden}
+.kpi{padding:12px 14px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);margin:0 -1px -1px 0}
+.kpi.qc{grid-column:1/-1;border-right:0}.kpi.qc p{margin:4px 0 0;font-size:13px;line-height:1.45;color:var(--muted)}
+.kpi .k{font:500 11px var(--font-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.kpi .v{font:600 26px/1.15 var(--font-display);color:var(--ink);margin-top:2px}
+.kpi .v small{font:500 12px var(--font-mono);color:var(--muted);margin-left:3px}
+.cgrid{display:grid;grid-template-columns:1fr;gap:0}
+.cbox{padding:16px;border-bottom:1px solid var(--line);min-width:0;position:relative}
+.cbox h3{font:600 15px var(--font-body);margin:0 0 2px}
+.cbox .cap{font-size:13px;color:var(--muted);margin:0 0 8px}
+.cbox:last-child{border-bottom:0}
+.chead{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:flex-start}
+.seg{display:flex;gap:6px}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.chart text{font-family:var(--font-mono);font-size:11px;fill:var(--muted)}
+.chart .gl{stroke:var(--grid);stroke-width:1}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--bg);font:12px/1.4 var(--font-mono);padding:6px 9px;border-radius:3px;white-space:nowrap;opacity:0;transition:opacity .08s;z-index:3}
+.legend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12px;color:var(--muted);margin-top:6px}
+.legend i{display:inline-block;width:14px;height:0;border-top:2px solid var(--accent);vertical-align:middle;margin-right:5px}
+.legend i.mx{border-top:2px dashed var(--muted)}
+.legend i.bx{height:9px;border:0;background:var(--accent);opacity:.55;border-radius:2px}
+.pn-note{padding:12px 16px;font-size:13px;color:var(--muted);border-top:1px solid var(--line)}
+.pn-note a{color:var(--muted)}
+details.tbl{padding:0 16px 14px}
+details.tbl summary{font:500 12px var(--font-mono);color:var(--muted);cursor:pointer;padding:6px 0}
+details.tbl table{border-collapse:collapse;font:12px var(--font-mono);width:100%;margin-top:6px}
+details.tbl td,details.tbl th{border-bottom:1px solid var(--line);padding:4px 6px;text-align:right;color:var(--ink)}
+details.tbl th{color:var(--muted);font-weight:500}
+@media (min-width:860px){.cgrid{grid-template-columns:1fr 1fr}.cbox.wide{grid-column:1/-1}.cbox:nth-child(odd):not(.wide){border-right:1px solid var(--line)}}
+
+/* Diagramas de modelo */
+.models{display:grid;grid-template-columns:minmax(0,1fr);gap:0;border-top:1px solid var(--line)}
+.models figure{margin:0;padding:18px 24px 20px;min-width:0}
+.models figure+figure{border-top:1px solid var(--line)}
+.models .scroll{overflow-x:auto}
+.models figcaption{font-size:13px;line-height:1.45;color:var(--muted);margin-top:10px;max-width:62ch}
+.models figcaption b{color:var(--ink);font-weight:600}
+.dg{display:block;width:100%;max-width:760px;height:auto;min-width:560px;color:var(--muted)}
+.dg .dg-f{fill:var(--bg);stroke:var(--line);stroke-width:1.25}
+.dg .dg-d{fill:var(--accent);fill-opacity:.14;stroke:var(--accent);stroke-width:1.75}
+.dg .dg-l{fill:none;stroke:currentColor;stroke-width:1.25;opacity:.7}
+.dg text{font-family:var(--font-mono);font-size:12px}
+.dg .dg-t{fill:var(--ink);font-weight:500}
+.dg .dg-s{fill:var(--muted);font-size:10.5px;letter-spacing:.08em}
+@media (max-width:860px){.models figure{padding-inline:16px}.sheet .when{white-space:normal}}
+details.code pre{margin:6px 0 10px;padding:14px 16px;background:var(--bg);border:1px solid var(--line);border-radius:4px;overflow-x:auto;font:13px/1.55 var(--font-mono);color:var(--ink)}
+details.code .cap{font-size:13px;color:var(--muted);margin:0 0 6px;max-width:70ch}
+
+/* Recomendações */
+.recs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.rec{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:22px 24px;display:flex;flex-direction:column;justify-content:space-between;gap:18px}
+.rec blockquote{margin:0;font-size:18px;line-height:1.55;color:var(--ink)}
+.rec blockquote p{margin:0}
+.rec blockquote p+p{margin-top:10px}
+.rec figcaption{font-size:14px;line-height:1.4;color:var(--muted);border-top:1px solid var(--line);padding-top:12px}
+.rec figcaption{display:flex;gap:14px;align-items:flex-start}
+.rec figcaption>div{min-width:0}
+.rec .av{flex:0 0 56px;width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid var(--line)}
+.rec figcaption b{display:block;color:var(--ink);font-weight:600;font-size:15px}
+.rec figcaption .label{display:block;margin-top:6px}
+@media (max-width:760px){.recs{grid-template-columns:minmax(0,1fr)}.rec{padding:18px 16px}}
+.pubs{margin:0;padding:0;list-style:none;display:grid;gap:10px}
+.pubs li{font-size:15px;line-height:1.45}
+.pubs .m{display:block;font-family:var(--font-mono);font-size:12px;color:var(--muted);margin-top:2px}
+
+/* recomendações em carrossel contínuo */
+.recs-wrap{margin-inline:calc(50% - 50vw);overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.recs.marquee{display:flex;gap:0;width:max-content;animation:rec-scroll var(--dur,60s) linear infinite}
+.recs.marquee .rec{flex:0 0 clamp(290px,82vw,390px);margin-right:24px;min-width:0}
+.recs-wrap:hover .recs.marquee,.recs-wrap:focus-within .recs.marquee,.recs-wrap.paused .recs.marquee{animation-play-state:paused}
+@keyframes rec-scroll{to{transform:translateX(-50%)}}
+.rec-ctl{margin-top:16px;display:flex;justify-content:flex-end}
+.rec-ctl button{font:inherit;font-size:14px;background:transparent;color:#fff;border:1.5px solid #fff;border-radius:6px;padding:7px 12px;cursor:pointer}
+@media (prefers-reduced-motion:reduce){.recs.marquee{animation:none;width:auto;overflow-x:auto;scroll-snap-type:x proximity;padding-inline:max(16px,calc(50vw - 520px))}.recs.marquee .rec{scroll-snap-align:start}.recs-wrap{-webkit-mask-image:none;mask-image:none}.rec-ctl{display:none}}
+/* === navegação e faixas de cor por seção (compartilhado entre as três páginas) === */
+/* faixas alternadas: branco e o teal do painel (#50a1a9) */
+:root{--b1:#dcecee;--bw:#ffffff;--bt:#50a1a9;--s1:#50a1a9;--tx:#0d2733;--tx2:#0f2f38;--navh:64px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--b1:#16363a;--bw:#0e222b;--bt:#1f5a61;--s1:#4cc3cc;--tx:#e9f3f4;--tx2:#d3e6e9}}
+:root[data-theme="dark"]{--b1:#16363a;--bw:#0e222b;--bt:#1f5a61;--s1:#4cc3cc;--tx:#e9f3f4;--tx2:#d3e6e9}
+:root{overflow-x:clip}body{overflow-x:clip;margin:0}
+.snav{position:sticky;top:0;z-index:40;background:var(--surface);box-shadow:0 0 0 100vmax var(--surface);clip-path:inset(0 -100vmax)}
+.snav::after{content:"";position:absolute;left:-100vmax;right:-100vmax;bottom:0;height:1px;background:var(--line)}
+.snav-in{display:flex;align-items:center;gap:10px 24px;flex-wrap:wrap;padding-block:10px}
+.snav .brand{font-family:var(--font-display,var(--f-display,inherit));font-size:18px;font-weight:700;color:var(--ink);text-decoration:none;white-space:nowrap}
+.snav nav{display:flex;align-items:center;gap:6px;flex:1 1 auto;min-width:0;overflow-x:auto;scrollbar-width:none;padding-block:2px}
+.snav nav::-webkit-scrollbar{display:none}
+.snav nav a{flex:0 0 auto;font-size:14px;line-height:1;color:var(--ink);text-decoration:none;padding:8px 12px;border:1.5px solid transparent;border-radius:6px;white-space:nowrap}
+.snav nav a:hover{background:var(--b1);border-color:var(--line)}
+.snav nav a[aria-current]{background:var(--b1);border-color:var(--s1);font-weight:600}
+.snav .sep{flex:0 0 1px;align-self:stretch;background:var(--line);margin:4px 6px}
+@media (min-width:900px){.snav nav{justify-content:flex-end}}
+.wrap>section{position:relative;margin:0;padding-block:clamp(40px,6vw,72px);box-shadow:0 0 0 100vmax var(--band,transparent);clip-path:inset(0 -100vmax);background:var(--band,transparent);scroll-margin-top:var(--navh)}
+.wrap>section::before{content:"";position:absolute;left:-100vmax;right:-100vmax;top:0;height:3px;background:var(--sa,var(--accent))}
+.wrap>section:nth-of-type(odd){--band:var(--bw);--sa:var(--bt)}
+.wrap>section:nth-of-type(odd){--band:var(--bw);--sa:var(--bt)}
+.wrap>section:nth-of-type(even){--band:var(--bt);--sa:var(--bw)}
+/* texto direto sobre o teal fica branco; o que está dentro de cartões continua escuro */
+.wrap>section:nth-of-type(even)>:is(h1,h2,h3,p,.eyebrow,.label,.hint,.sec-head),
+.wrap>section:nth-of-type(even)>.sec-head :is(h1,h2,h3,p,span,div,.label,.eyebrow){color:#fff}
+.wrap>section:nth-of-type(even)>:is(p,.sec-head) a:not(.btn){color:#fff;text-decoration-thickness:1.5px}
+.wrap>section:nth-of-type(even)>:is(p,.sec-head) :is(b,strong){color:#fff}
+.wrap>section:nth-of-type(even) .contact :is(h2,h3){color:#f2f8f9}
+.results{top:calc(var(--navh) + 12px)!important}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+<header class="snav"><div class="snav-in"><a class="brand" href="index.html">Andrezza Agápito</a><nav aria-label="Principal" id="secnav"><a href="#projetos">Projetos</a><a href="#painel">Painel</a><a href="#trajetoria">Trajetória</a><a href="#recomendacoes">Recomendações</a><a href="#contato">Contato</a><span class="sep" aria-hidden="true"></span><a href="dissertacao.html">Dissertação</a><a href="priorizador.html">Priorizador</a></nav></div></header>
+
+  <header class="hero">
+    <div class="hero-grid"><div class="hero-copy">
+    <p class="label">Oceanógrafa · Análise de dados e IA</p>
+    <h1>Dado é decisão.<span class="h1sub">Seja na terra ou no mar.</span></h1>
+    <p class="lead">Sou oceanógrafa (UNIVALI), mestre em Engenharia de Produção (UFF) e especialista em Gestão de Projetos (FGV).</p>
+    <p class="lead" style="margin-top:14px">Em <b>10 anos no IEAPM</b>, na Marinha, comecei como ajudante de divisão, monitorando ondas com radar náutico. Assumi a divisão e o projeto, implantei o escritório de projetos (que virou minha <a href="dissertacao.html">dissertação de mestrado</a>) e terminei como assessora do Diretor.</p>
+    <p class="lead" style="margin-top:14px">Depois levei esse olhar para a consultoria de processos na Petrobras e para os painéis de Power BI e IA aplicada de grandes operações, como <a href="#total">Total e Wilson Sons</a>.</p>
+    <ul class="tags" aria-label="Competências">
+      <li>Séries temporais</li><li>Ondas e correntes</li><li>Radar náutico X-band</li><li>Power BI e DAX</li><li>MATLAB</li><li>PMBOK</li>
+    </ul>
+</div>
+    <figure class="record">
+      <img src="img/wamos-cabo-frio-2010.jpg" width="800" height="416" alt="Tela do software WaMoS no Farol de Cabo Frio com altura significativa de 2,1 m, período de pico de 12,2 s e espectro direcional de ondas">
+      <figcaption>
+        <span class="label">WaMoS · Farol de Cabo Frio · 16/06/2010, 16h04 (GMT+0)</span><br>
+        <span class="label">Hs 2,1 m · Tp 12,2 s · λp 227 m · θp 151°</span>
+      </figcaption>
+    </figure>
+    </div>
+  </header>
+
+  <section id="projetos" aria-labelledby="h-proj">
+    <div class="sec-head">
+      <h2 id="h-proj">Projetos</h2>
+      <span class="label">4 fichas · 2001 – 2023</span>
+    </div>
+
+    <article class="sheet">
+      <header>
+        <h3>Coleta de dados meteorológicos e oceanográficos, em campo e no mar</h3>
+        <span class="label when">jul. 2001 – dez. 2004 · UNIVALI / CTTMar</span>
+      </header>
+      <div class="body">
+        <div class="what">
+          <p>Comecei na prática ainda estudante, como estagiária do Laboratório de Oceanografia Física da UNIVALI, em Itajaí (SC).</p>
+          <ul>
+            <li>Fiz parte da equipe do projeto da Estação Meteorológica e Oceanográfica da P-XIV, instalada em plataforma.</li>
+            <li>Coletei dados meteorológicos e oceanográficos na Baía de Babitonga e no Canal do Linguado, com saídas embarcadas.</li>
+            <li>Participei da etapa de coleta de dados do projeto Cenários de Derrames de Óleo em Unidades da Petrobras.</li>
+          </ul>
+        </div>
+        <dl>
+          <div><dt>Dados</dt><dd>Meteorológicos e oceanográficos, coletados em campo</dd></div>
+          <div><dt>Locais</dt><dd>Plataformas P-XIV e PIX, Baía de Babitonga, Canal do Linguado</dd></div>
+          <div><dt>Instituição</dt><dd>Universidade do Vale do Itajaí, Laboratório de Oceanografia Física</dd></div>
+        </dl>
+      </div>
+      <div class="gallery solo">
+        <figure>
+          <img src="img/plataforma-pix.jpg" width="800" height="600" loading="lazy" alt="Plataforma semissubmersível de petróleo com queimador aceso e heliponto, no mar aberto">
+          <figcaption>Plataforma PIX, onde embarquei como estagiária.</figcaption>
+        </figure>
+        <figure>
+          <img src="img/equipe-pix.jpg" width="800" height="600" loading="lazy" alt="Quatro pessoas posam em uma sala de controle de plataforma; três usam macacão laranja">
+          <figcaption>Equipe na sala de controle da PIX.</figcaption>
+        </figure>
+      </div>
+    </article>
+
+    <article class="sheet">
+      <header>
+        <h3>Medição de ondas e correntes de superfície com radar náutico</h3>
+        <span class="label when">2007 – 2017 · IEAPM / Marinha</span>
+      </header>
+      <div class="body">
+        <div class="what">
+          <p>Projeto de oceanografia física operacional na Marinha do Brasil. Comecei como ajudante de divisão, ainda civil, depois encarregada da Divisão de Instrumentação Oceanográfica e passei a gerente do projeto em 2012.</p>
+          <ul>
+            <li>Coordenei a montagem, a configuração, a instalação e a calibração do radar náutico X-band (Sistema Wamos) em pontos da costa, entre eles o Farol da Ilha do Cabo Frio e o Farol de Santa Marta.</li>
+            <li>Fiz parte da coordenação técnica do lançamento do ondógrafo Waverider.</li>
+            <li>Tratei, interpretei e reportei as séries temporais de ondas e correntes.</li>
+            <li>Conduzi viagens de campo para manter o sistema de aquisição de dados.</li>
+          </ul>
+        </div>
+        <dl>
+          <div><dt>Instrumentos</dt><dd>Radar náutico X-band (Wamos), ondógrafo Waverider</dd></div>
+          <div><dt>Dados</dt><dd>Séries temporais de ondas e correntes de superfície</dd></div>
+          <div><dt>Local</dt><dd>Arraial do Cabo, RJ</dd></div>
+          <div><dt>Apresentação</dt><dd>“Monitoramento de Ondas por meio de Radar Náutico”, Congresso Brasileiro de Oceanografia, 2008</dd></div>
+          <div><dt>Publicações</dt><dd><ul class="pubs">
+            <li>Monitoramento de ondas e de correntes por meio de radar náutico<span class="m">Pesquisa Naval, v. 21, ago. 2009</span></li>
+            <li><a href="pdf/ressurgencia-v2-2008.pdf" target="_blank" rel="noopener">Implementação de Estações de Medição de Ondas e Correntes Marinhas por meio de Radar Náutico</a><span class="m">Revista A Ressurgência, v. 2, p. 35–38, 2008 · coautoria, assinado pelo chefe da divisão, J. F. Barbosa · <a href="https://www.marinha.mil.br/ieapm/revista_ressurgencia" target="_blank" rel="noopener">edição completa</a></span></li>
+            <li><a href="pdf/ressurgencia-v3-2009.pdf" target="_blank" rel="noopener">Estado do Mar Observado por Radar Náutico: Estudo de Casos</a><span class="m">Revista A Ressurgência, v. 3, p. 54–56, 2009 · com J. F. Barbosa · <a href="https://www.marinha.mil.br/ieapm/revista_ressurgencia" target="_blank" rel="noopener">edição completa</a></span></li>
+          </ul></dd></div>
+        </dl>
+      </div>
+      <div class="gallery">
+        <figure>
+          <img src="img/farol-cabo-frio.jpg" width="800" height="600" loading="lazy" alt="Torre branca do Farol de Cabo Frio e edificações ao lado, com o mar ao fundo">
+          <figcaption>Farol de Cabo Frio, um dos pontos de instalação do radar.</figcaption>
+        </figure>
+        <figure>
+          <img src="img/andrezza-monitor-radar.jpg" width="800" height="600" loading="lazy" alt="Andrezza fotografando com o celular a tela do WaMoS, ao lado de um monitor Furuno">
+          <figcaption>Eu registrando a tela do WaMoS, ao lado do monitor Furuno.</figcaption>
+        </figure>
+        <figure>
+          <img class="top" src="img/waverider-2007.jpg" width="600" height="800" loading="lazy" alt="Boia laranja do ondógrafo Waverider sendo içada no convés de uma embarcação, com dois homens na manobra">
+          <figcaption>Lançamento do ondógrafo Waverider, 2007.</figcaption>
+        </figure>
+      </div>
+    </article>
+
+    <article class="sheet">
+      <header>
+        <h3>Escritório de Projetos do IEAPM e gestão de portfólio com AHP e Lógica Fuzzy</h3>
+        <span class="label when">2012 – 2017 · IEAPM e UFF</span>
+      </header>
+      <div class="body">
+        <div class="what">
+          <p>Estruturei a gestão de projetos do instituto e transformei esse trabalho em dissertação de mestrado.</p>
+          <ul>
+            <li>Implementei e geri o Escritório de Projetos, padronizando processos.</li>
+            <li>Coordenei o CPROCITEM, sistema de controle de projetos de C&amp;T da Marinha, e assessorei os gerentes de projeto em boas práticas do PMBOK.</li>
+            <li>Integrei o Grupo de Trabalho de atualização do Planejamento Estratégico, a Comissão do Programa Netuno e o Comitê de Qualidade.</li>
+            <li>Dissertação (UFF, Engenharia de Produção): análise multicritério (AHP) e Lógica Fuzzy aplicadas à gestão do portfólio de projetos de C,T&amp;I do IEAPM.</li>
+          </ul>
+        </div>
+        <dl>
+          <div><dt>Métodos</dt><dd>AHP, Lógica Fuzzy, Pesquisa Operacional, PMBOK</dd></div>
+          <div><dt>Entrega</dt><dd>PMO em funcionamento e dissertação de mestrado</dd></div>
+          <div><dt>Instituição</dt><dd>Marinha do Brasil (IEAPM) e Universidade Federal Fluminense</dd></div>
+          <div><dt>Publicações</dt><dd><ul class="pubs">
+            <li><a href="https://bjopm.org.br/bjopm/article/view/681/838" target="_blank" rel="noopener">Using multicriteria analysis and fuzzy logic for project portfolio management</a><span class="m">Brazilian Journal of Operations &amp; Production Management, v. 16, n. 2, 2019</span></li>
+            <li><a href="https://atenaeditora.com.br/catalogo/post/utilizacao-do-metodo-de-analise-hierarquica-ahp-como-ferramenta-de-auxilio-multicriterio-no-processo-de-decisao-de" target="_blank" rel="noopener">Utilização do Método de Análise Hierárquica (AHP) como ferramenta de auxílio multicritério no processo de decisão de priorização de projetos de ciência, tecnologia e inovação na Amazônia Azul</a><span class="m">Capítulo de livro, Atena Editora, 2020</span></li>
+            <li><a href="https://sucupira-legado.capes.gov.br/sucupira/public/consultas/coleta/trabalhoConclusao/viewTrabalhoConclusao.jsf?popup=true&amp;id_trabalho=6130066" target="_blank" rel="noopener">Utilização de Análise Multicritério e Lógica Fuzzy na Gestão do Portfólio de Projetos de uma Instituição de Ciência, Tecnologia e Inovação</a><span class="m">Dissertação de mestrado, UFF, 2017</span></li>
+          </ul></dd></div>
+          <div><dt>Para explorar</dt><dd><ul class="pubs">
+            <li><a href="dissertacao.html">A dissertação, reproduzida</a><span class="m">Critérios, pesos e resultados do estudo de caso, recalculados no navegador</span></li>
+            <li><a href="priorizador.html">Priorizador AHP-Fuzzy</a><span class="m">O método reescrito do MatLab: você define critérios, pesos e projetos</span></li>
+          </ul></dd></div>
+        </dl>
+      </div>
+    </article>
+
+    <article class="sheet" id="total">
+      <header>
+        <h3>Painéis de gestão para as operações offshore da Total</h3>
+        <span class="label when">fev. 2021 – abr. 2023 · Daxus (antiga Empowerdata)</span>
+      </header>
+      <div class="body">
+        <div class="what">
+          <p lang="pt-BR" style="text-align:justify;hyphens:auto">Seis projetos de Power BI para as áreas de logística e operações da Total. Em fev. 2021 assumi parcialmente os três primeiros, que já estavam quase prontos: atualizei os painéis, mapeei processos, criei páginas e medidas novas, cuidei das extrações de dados e da documentação. No fim de 2021 eu dominava os projetos e passei a conduzir a consultoria com autonomia. Os outros três foram meus desde o início. Também desenvolvi painéis em Power BI para a Wilson Sons (em parceria com a Total) e a Sicredi. Na Wintershall Dea, participei, com a equipe financeira, do mapeamento dos processos e das fontes de dados. Também participei, em equipe, do desenvolvimento de parte dos painéis de DRE, fluxo de caixa, previsões por cenário e custos operacionais.</p>
+          <ul>
+            <li><b>Aviação.</b> Painel de transporte aéreo offshore: ocupação de assentos, atrasos, cancelamentos, custo por voo e emissões, com rotina semanal de extração e validação.</li>
+            <li><b>Operações marítimas.</b> 27 indicadores sobre embarcações de apoio: tempo operacional, espera por clima, viagens abortadas, combustível, CO₂ equivalente e custos.</li>
+            <li><b>Operações com ROV.</b> 22 indicadores de mergulhos e operações submarinas, com regras de negócio definidas junto à área operacional.</li>
+            <li><b>Base de apoio logístico.</b> 46 indicadores gerenciais e operacionais sobre atracação, carga e descarga, tempo ocioso, qualidade e segurança. O maior desafio foi consolidar bases dispersas e preenchidas à mão em um modelo único e validado.</li>
+            <li><b>Saúde, segurança e transporte terrestre.</b> Painel de segurança (anomalias, horas-homem, controle de acesso) e um painel de 25 indicadores de corridas, distância e custo, com tratamento de origem e destino para calcular quilometragem.</li>
+            <li><b>Emissões de gases de efeito estufa.</b> Painel de inventário em KtCO₂eq (flare, gás ventilado, combustíveis), com intensidade de emissão, eficiência energética e visão por perímetro. Contribuí na análise e na consolidação das bases, com mais de 150 medidas DAX e um manual do método de cálculo.</li>
+          </ul>
+        </div>
+        <dl>
+          <div><dt>Ferramentas</dt><dd>Power BI, DAX, modelagem dimensional, Power Query, Excel</dd></div>
+          <div><dt>Método</dt><dd>Mapeamento de KPIs com a área, validação contra a fonte, documentação de cada indicador</dd></div>
+          <div><dt>Período</dt><dd>Fev. 2021 a abr. 2023</dd></div>
+          <div><dt>Confidencialidade</dt><dd>Sem dados, telas ou nomes internos dos clientes; descrição do trabalho e do método</dd></div>
+        </dl>
+      </div>
+
+      <div class="models">
+        <figure>
+          <div class="scroll"><svg class="dg" viewBox="0 0 760 400" role="img" aria-label="Esquema em estrela de um painel de aviação: sete tabelas de fatos ligadas por relações muitos-para-um a três dimensões (aeronave, destino e campo)"><defs><marker id="a1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 L9 5 L1 9 Z" fill="currentColor"/></marker></defs><path class="dg-l" d="M97.5 74 C97.5 134 135.0 118 135.0 177" marker-end="url(#a1)"/><path class="dg-l" d="M135.0 74 C135.0 134 362.5 118 362.5 177" marker-end="url(#a1)"/><path class="dg-l" d="M172.5 74 C172.5 134 575.0 118 575.0 177" marker-end="url(#a1)"/><path class="dg-l" d="M260.8 74 C260.8 134 165.0 118 165.0 177" marker-end="url(#a1)"/><path class="dg-l" d="M298.3 74 C298.3 134 400.0 118 400.0 177" marker-end="url(#a1)"/><path class="dg-l" d="M335.8 74 C335.8 134 605.0 118 605.0 177" marker-end="url(#a1)"/><path class="dg-l" d="M424.2 74 C424.2 134 195.0 118 195.0 177" marker-end="url(#a1)"/><path class="dg-l" d="M461.7 74 C461.7 134 437.5 118 437.5 177" marker-end="url(#a1)"/><path class="dg-l" d="M499.2 74 C499.2 134 635.0 118 635.0 177" marker-end="url(#a1)"/><path class="dg-l" d="M600.0 74 C600.0 134 225.0 118 225.0 177" marker-end="url(#a1)"/><path class="dg-l" d="M650.0 74 C650.0 134 665.0 118 665.0 177" marker-end="url(#a1)"/><path class="dg-l" d="M83.3 326 C83.3 266 180.0 282 180.0 223" marker-end="url(#a1)"/><path class="dg-l" d="M146.7 326 C146.7 266 595.0 282 595.0 223" marker-end="url(#a1)"/><path class="dg-l" d="M380.0 326 C380.0 266 400.0 282 400.0 223" marker-end="url(#a1)"/><path class="dg-l" d="M645.0 326 C645.0 266 645.0 282 645.0 223" marker-end="url(#a1)"/><rect class="dg-f" x="60.0" y="34" width="150" height="40" rx="4"/><text class="dg-t" x="135.0" y="58.0" text-anchor="middle">Voos</text><rect class="dg-f" x="223.33333333333334" y="34" width="150" height="40" rx="4"/><text class="dg-t" x="298.33333333333337" y="58.0" text-anchor="middle">Atrasos</text><rect class="dg-f" x="386.6666666666667" y="34" width="150" height="40" rx="4"/><text class="dg-t" x="461.6666666666667" y="58.0" text-anchor="middle">Passageiros</text><rect class="dg-f" x="550.0" y="34" width="150" height="40" rx="4"/><text class="dg-t" x="625.0" y="58.0" text-anchor="middle">Cancelamentos</text><rect class="dg-f" x="20.0" y="326" width="190" height="40" rx="4"/><text class="dg-t" x="115.0" y="350.0" text-anchor="middle">Confiabilidade</text><rect class="dg-f" x="285.0" y="326" width="190" height="40" rx="4"/><text class="dg-t" x="380.0" y="350.0" text-anchor="middle">Passageiros no-show</text><rect class="dg-f" x="550.0" y="326" width="190" height="40" rx="4"/><text class="dg-t" x="645.0" y="350.0" text-anchor="middle">Voos realizados</text><rect class="dg-d" x="105.0" y="178" width="150" height="44" rx="4"/><text class="dg-t" x="180.0" y="204.0" text-anchor="middle">Aeronave</text><rect class="dg-d" x="325.0" y="178" width="150" height="44" rx="4"/><text class="dg-t" x="400.0" y="204.0" text-anchor="middle">Destino</text><rect class="dg-d" x="545.0" y="178" width="150" height="44" rx="4"/><text class="dg-t" x="620.0" y="204.0" text-anchor="middle">Campo</text><text class="dg-s" x="14" y="22">FATOS</text><text class="dg-s" x="14" y="204.0">DIMENSÕES</text></svg></div>
+          <figcaption lang="pt-BR" style="text-align:justify;hyphens:auto"><b>Modelo da aviação, simplificado.</b> Sete tabelas de fatos (voos, atrasos, passageiros, cancelamentos, confiabilidade, no-show e voos realizados) apontam para três dimensões compartilhadas. Cada seta é uma relação muitos-para-um com filtro em um só sentido, o que permite filtrar tudo por aeronave, destino ou campo. Custo e calendário entram por medidas DAX. Diagrama sem nomes de campos nem dados dos clientes.</figcaption>
+        </figure>
+        <figure>
+          <div class="scroll"><svg class="dg" viewBox="0 0 640 400" role="img" aria-label="Esquema em estrela de um painel de operações marítimas: oito tabelas de fatos ligadas à dimensão embarcação, duas delas também à dimensão atividade"><defs><marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 L9 5 L1 9 Z" fill="currentColor"/></marker></defs><path class="dg-l" d="M208 40.0 C258 40.0 250 157.8 299 157.8" marker-end="url(#a2)"/><path class="dg-l" d="M208 34.0 C328 34.0 350 39.4 469 39.4" marker-end="url(#a2)"/><path class="dg-l" d="M208 84.0 C258 84.0 250 185.6 299 185.6" marker-end="url(#a2)"/><path class="dg-l" d="M208 78.0 C328 78.0 350 54.8 469 54.8" marker-end="url(#a2)"/><path class="dg-l" d="M208 128.0 C258 128.0 250 213.3 299 213.3" marker-end="url(#a2)"/><path class="dg-l" d="M208 172.0 C258 172.0 250 241.1 299 241.1" marker-end="url(#a2)"/><path class="dg-l" d="M208 216.0 C258 216.0 250 268.9 299 268.9" marker-end="url(#a2)"/><path class="dg-l" d="M208 260.0 C258 260.0 250 296.7 299 296.7" marker-end="url(#a2)"/><path class="dg-l" d="M208 304.0 C258 304.0 250 324.4 299 324.4" marker-end="url(#a2)"/><path class="dg-l" d="M208 348.0 C258 348.0 250 352.2 299 352.2" marker-end="url(#a2)"/><path class="dg-l" d="M470 252.0 L441 252.0" marker-end="url(#a2)"/><rect class="dg-f" x="18" y="24" width="190" height="32" rx="4"/><text class="dg-t" x="113.0" y="44.0" text-anchor="middle">Relatório diário</text><rect class="dg-f" x="18" y="68" width="190" height="32" rx="4"/><text class="dg-t" x="113.0" y="88.0" text-anchor="middle">Navegação longa</text><rect class="dg-f" x="18" y="112" width="190" height="32" rx="4"/><text class="dg-t" x="113.0" y="132.0" text-anchor="middle">Viagens extras</text><rect class="dg-f" x="18" y="156" width="190" height="32" rx="4"/><text class="dg-t" x="113.0" y="176.0" text-anchor="middle">Relatórios de falha</text><rect class="dg-f" x="18" y="200" width="190" height="32" rx="4"/><text class="dg-t" x="113.0" y="220.0" text-anchor="middle">Aproximações e carga</text><rect class="dg-f" x="18" y="244" width="190" height="32" rx="4"/><text class="dg-t" x="113.0" y="264.0" text-anchor="middle">Estoque de combustível</text><rect class="dg-f" x="18" y="288" width="190" height="32" rx="4"/><text class="dg-t" x="113.0" y="308.0" text-anchor="middle">Esperas operacionais</text><rect class="dg-f" x="18" y="332" width="190" height="32" rx="4"/><text class="dg-t" x="113.0" y="352.0" text-anchor="middle">Viagens abortadas</text><rect class="dg-d" x="300" y="130" width="140" height="250" rx="4"/><text class="dg-t" x="370.0" y="259.0" text-anchor="middle">Embarcação</text><rect class="dg-d" x="470" y="24" width="150" height="44" rx="4"/><text class="dg-t" x="545.0" y="50.0" text-anchor="middle">Atividade</text><rect class="dg-d" x="470" y="230" width="150" height="44" rx="4"/><text class="dg-t" x="545.0" y="256.0" text-anchor="middle">Campo</text><text class="dg-s" x="18" y="14">FATOS</text><text class="dg-s" x="300" y="120">DIMENSÕES</text></svg></div>
+          <figcaption lang="pt-BR" style="text-align:justify;hyphens:auto"><b>Modelo das operações marítimas, simplificado.</b> A dimensão embarcação concentra oito fatos; a dimensão atividade classifica só os registros de operação e de navegação. O mesmo padrão em estrela se repete nos projetos, o que facilita a manutenção e a documentação.</figcaption>
+        </figure>
+      </div>
+    </article>
+
+    <article class="sheet">
+      <header>
+        <h3>Mapeamento e redesenho de processos com Bizagi</h3>
+        <span class="label when">2019 – 2020 · Infotec Brasil, para a Petrobras</span>
+      </header>
+      <div class="body">
+        <div class="what">
+          <p lang="pt-BR" style="text-align:justify;hyphens:auto">Consultoria de processos para uma área da Petrobras, com o método que uso até hoje: entender como o trabalho acontece antes de medir ou propor qualquer coisa.</p>
+          <ul>
+            <li>Modelei o cenário atual (AS IS) dos processos no Bizagi.</li>
+            <li>Fiz benchmarking de práticas e de custos do setor.</li>
+            <li>Desenhei o modelo futuro (TO BE), com plano de implantação.</li>
+          </ul>
+        </div>
+        <dl>
+          <div><dt>Ferramentas</dt><dd>Bizagi, benchmarking</dd></div>
+          <div><dt>Método</dt><dd>AS IS, TO BE, plano de implantação</dd></div>
+          <div><dt>Instituição</dt><dd>Infotec Brasil, para a Petrobras</dd></div>
+        </dl>
+      </div>
+    </article>
+  </section>
+
+
+  <section id="painel" aria-labelledby="h-pn">
+    <div class="sec-head">
+      <h2 id="h-pn">Painel de condições oceânicas</h2>
+      <span class="label">PNBOIA · Marinha do Brasil</span>
+    </div>
+    <p class="lede" lang="pt-BR" style="text-align:justify;hyphens:auto">Demonstrativo do que se pode fazer com os dados do PNBOIA, a rede de boias da Marinha, que em 2021 estavam disponíveis, de acesso livre, no site da Marinha. Baixei um recorte histórico (2016 – 2021), tratei os dados e publiquei o painel abaixo, construído com IA. Não é uma leitura em tempo real.</p>
+    <div class="panel" id="pn">
+      <div class="tabs" role="group" aria-label="Boia" id="pn-tabs"></div>
+      <div class="pn-meta" id="pn-meta"></div>
+      <div class="kpis" id="pn-kpis"></div>
+      <div class="cgrid">
+        <div class="cbox wide">
+          <div class="chead"><div><h3 id="ts-t">Altura significativa de onda</h3><p class="cap" id="ts-c"></p></div>
+            <div class="seg" role="group" aria-label="Variável"><button type="button" data-m="hs" aria-pressed="true">Hs</button><button type="button" data-m="tp" aria-pressed="false">Período</button><button type="button" data-m="ws" aria-pressed="false">Vento</button></div></div>
+          <div class="chart" id="ts"></div>
+          <div class="legend" id="ts-l"></div>
+        </div>
+        <div class="cbox"><h3>Direção das ondas</h3><p class="cap">De onde vêm as ondas. Comprimento: % dos registros; intensidade: Hs média.</p><div class="chart" id="rose"></div></div>
+        <div class="cbox"><h3>Sazonalidade da Hs</h3><p class="cap">Distribuição mensal: caixa de P25 a P75, traço na mediana, haste de P10 a P90.</p><div class="chart" id="box"></div></div>
+      </div>
+      <details class="tbl code">
+        <summary>Como o painel original calculava (trecho em DAX)</summary>
+        <pre><code>-- Vento médio em nós: a fonte vem em m/s (1 nó = 0,51444 m/s)
+Vento médio (nós) =
+DIVIDE ( AVERAGE ( boia[wspd] ), 0.51444 )
+
+-- Última leitura: o valor do registro de maior índice
+Última Hs =
+CALCULATE (
+    VALUES ( boia[swvht1] ),
+    TOPN ( 1, boia, boia[indice], DESC )
+)</code></pre>
+        <p class="cap">Trecho do meu painel em Power BI, com os nomes das tabelas simplificados. A versão desta página mostra o vento em m/s, a unidade da fonte; o original convertia para nós.</p>
+      </details>
+      <details class="tbl"><summary>Ver como tabela (resumo mensal)</summary><div id="pn-tbl"></div></details>
+      <div class="pn-note">Fonte: PNBOIA / Centro de Hidrografia da Marinha (dados públicos). Vento em m/s, como na fonte. Registros fora das faixas físicas plausíveis foram descartados. Trindade é um Spotter à deriva e foi cortado onde a boia se aproximou da costa.</div>
+    </div>
+  </section>
+
+  <section id="trajetoria" aria-labelledby="h-traj">
+    <div class="sec-head">
+      <h2 id="h-traj">Trajetória</h2>
+      <span class="label">do mar aos dados</span>
+    </div>
+    <div class="path">
+      <div><span class="label">2021 – 2026</span><p><b>Daxus (antiga Empowerdata)</b><span class="sub">Consultora de projetos em BI e, depois, analista de dados e indicadores em uma operação de mais de 20 mil alunos, com dashboards, NPS e um assistente de IA (RAG).</span></p></div>
+      <div><span class="label">2019 – 2020</span><p><b>Infotec Brasil, para a Petrobras</b><span class="sub">Consultora de projetos.</span></p></div>
+      <div><span class="label">2009 – 2017</span><p><b>Marinha do Brasil, IEAPM</b><span class="sub">1º Tenente RM2-T: instrumentação oceanográfica e gerência de projeto.</span></p></div>
+      <div><span class="label">2007 – 2009</span><p><b>FEMAR, alocada no IEAPM</b><span class="sub">Assistente técnica de pesquisa: radar náutico e dados de ondas e correntes.</span></p></div>
+      <div><span class="label">2001 – 2004</span><p><b>UNIVALI / CTTMar</b><span class="sub">Estágio no Laboratório de Oceanografia Física: estação meteorológica e oceanográfica em plataforma e coletas embarcadas.</span></p></div>
+    </div>
+  </section>
+
+
+  <section id="recomendacoes" aria-labelledby="h-rec">
+    <div class="sec-head">
+      <h2 id="h-rec">Recomendações</h2>
+      <span class="label">do LinkedIn</span>
+    </div>
+    <div class="recs">
+      <figure class="rec">
+        <blockquote><p>Excelente profissional! Focada em resultados através de dados e com bastante humildade pra compartilhar conhecimento.</p></blockquote>
+        <figcaption><img class="av" src="img/rec-raphael.jpg" width="56" height="56" alt="" loading="lazy"><div><b>Raphael Cortez de Lima</b>Coordenador de Business Intelligence | Data Analytics Power BI<span class="label">trabalhamos na mesma equipe · jul. 2026</span></div></figcaption>
+      </figure>
+      <figure class="rec">
+        <blockquote><p>Eu e Andrezza participamos do desenho e implantação da Sistemática de Gerenciamento de Projetos do IEAPM, onde desenvolvemos o processo (metodologia) e a governança (política de gerenciamento de projetos e PMO), capacitando pessoas para a gestão de projetos com apoio de software de gerenciamento de projetos. Posso atestar que ela tem o conhecimento, as habilidades e, principalmente, as atitudes necessárias para a atuação na área de gerenciamento de projetos.</p></blockquote>
+        <figcaption><img class="av" src="img/rec-carlos.jpg" width="56" height="56" alt="" loading="lazy"><div><b>Carlos Magno Xavier</b>Sócio da Beware e professor da FGV<span class="label">mai. 2017</span></div></figcaption>
+      </figure>
+      <figure class="rec">
+        <blockquote><p>Profissional dedicada, estudiosa e ciosa dos seus compromissos e responsabilidades. Durante seu período servindo à nação demonstrou competência na gestão […]</p></blockquote>
+        <figcaption><img class="av" src="img/rec-marcus.jpg" width="56" height="56" alt="" loading="lazy"><div><b>Marcus Simões</b>Consultor ad hoc e professor do Programa de Pós-graduação em Acústica Submarina | D.Sc. em Engenharia Oceânica<span class="label">jan. 2018</span></div></figcaption>
+      </figure>
+      <figure class="rec">
+        <blockquote><p>Excelente professora e Gestora de Projetos. […] Sempre muito bem avaliada pelos alunos e unidade FGV Cabo Frio.</p></blockquote>
+        <figcaption><img class="av" src="img/rec-rafaela.jpg" width="56" height="56" alt="" loading="lazy"><div><b>Rafaela Melo</b>Educadora e empreendedora<span class="label">trabalhamos na mesma equipe · mai. 2017</span></div></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-form">
+    <div class="sec-head"><h2 id="h-form">Formação e ferramentas</h2></div>
+    <div class="two">
+      <div>
+        <ul>
+          <li><b>Mestrado em Engenharia de Produção</b> (Pesquisa Operacional e Simulação), UFF, 2014 – 2017</li>
+          <li><b>MBA em Gestão de Projetos</b>, FGV, 2010 – 2012</li>
+          <li><b>Bacharelado em Oceanografia</b>, UNIVALI, 1999 – 2004</li>
+        </ul>
+      </div>
+      <div>
+        <ul>
+          <li><b>Análise:</b> Power BI e DAX, MATLAB, noções de Python, modelagem e simulação</li>
+          <li><b>Projetos:</b> PMBOK, PMO, mapeamento de processos, Scrum e Kanban</li>
+          <li><b>IA aplicada:</b> RAG e agentes, com base de conhecimento e validação das respostas</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="contato" aria-labelledby="h-cont">
+    <div class="contact">
+      <h2 id="h-cont">Quero voltar para a área ambiental.</h2>
+      <p>Procuro vagas de oceanografia, análise de dados e gestão de projetos no Rio de Janeiro, em formato presencial, híbrido ou remoto.</p>
+      <div class="row">
+        <a class="btn" href="https://www.linkedin.com/in/andrezzaagapito/" target="_blank" rel="noopener">Ver perfil no LinkedIn</a>
+        <code id="mail">andrezza_agapito@outlook.com</code>
+        <button type="button" id="copy">Copiar e-mail</button>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>Andrezza Agápito, MSc. · São Pedro da Aldeia, RJ</span>
+    <span class="mono">η(t)</span>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var btn=document.getElementById('copy'),mail=document.getElementById('mail');
+  btn.addEventListener('click',function(){
+    function sel(){var r=document.createRange();r.selectNodeContents(mail);var x=window.getSelection();x.removeAllRanges();x.addRange(r);}
+    function ok(){btn.textContent='E-mail copiado';setTimeout(function(){btn.textContent='Copiar e-mail'},2000);}
+    try{navigator.clipboard.writeText(mail.textContent).then(ok,sel);}catch(e){sel();}
+  });
+})();
+</script>
+<script>
+(function(){
+  var D=null,cur=0,met='hs';
+  var MO=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+  var DIRS=['N','NNE','NE','ENE','E','ESE','SE','SSE','S','SSW','SW','WSW','W','WNW','NW','NNW'];
+  var DIRS_PT=['N','NNE','NE','ENE','L','ESE','SE','SSE','S','SSO','SO','OSO','O','ONO','NO','NNO'];
+  var NS='http://www.w3.org/2000/svg';
+  function el(n,a,p){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e;}
+  function dt(m){return new Date(m*60000);}
+  function fd(m){var d=dt(m);return d.getUTCDate()+' '+MO[d.getUTCMonth()]+' '+d.getUTCFullYear();}
+  function fdt(m){var d=dt(m);return fd(m)+', '+String(d.getUTCHours()).padStart(2,'0')+'h';}
+  function nf(x,n){return x==null?'–':x.toFixed(n).replace('.',',');}
+  var META={hs:{t:'Altura significativa de onda',u:'m',n:2,l:'Hs'},tp:{t:'Período dominante',u:'s',n:1,l:'Tp'},ws:{t:'Velocidade do vento',u:'m/s',n:1,l:'Vento'}};
+  function q(a,p){var s=a.slice().sort(function(x,y){return x-y;});if(!s.length)return null;var i=(s.length-1)*p,f=Math.floor(i),c=Math.ceil(i);return s[f]+(s[c]-s[f])*(i-f);}
+  function daily(S,k){
+    var m={};
+    for(var i=0;i<S.t.length;i++){var v=S[k][i];if(v==null)continue;var d=Math.floor(S.t[i]/1440);(m[d]=m[d]||[]).push(v);}
+    return Object.keys(m).map(Number).sort(function(a,b){return a-b;}).map(function(d){var a=m[d];var s=0,mx=-1e9;a.forEach(function(x){s+=x;if(x>mx)mx=x;});return {d:d,mean:s/a.length,max:mx,n:a.length};});
+  }
+  function tabs(){
+    var box=document.getElementById('pn-tabs');box.innerHTML='';
+    D.forEach(function(S,i){var b=document.createElement('button');b.type='button';b.textContent=S.name;b.setAttribute('aria-pressed',i===cur);b.onclick=function(){cur=i;render();};box.appendChild(b);});
+  }
+  function meta(S){
+    var pos=S.lat!=null?nf(Math.abs(S.lat),2)+'°S, '+nf(Math.abs(S.lon),2)+'°O':'posição variável (à deriva)';
+    var t0=S.t[0],t1=S.t[S.t.length-1];
+    document.getElementById('pn-meta').innerHTML='<span><b>'+S.kind+'</b> · '+S.sub+'</span><span>'+pos+'</span><span>'+fd(t0)+' a '+fd(t1)+'</span><span>'+S.t.length.toLocaleString('pt-BR')+' registros</span>';
+  }
+  function kpis(S){
+    var L=S.last,items=[['Hs',nf(L.hs,2),'m'],['Hmáx',L.hmax!=null?nf(L.hmax,2):null,'m'],['Período',nf(L.tp,1),'s'],['Direção',L.dir!=null?Math.round(L.dir)+'° '+DIRS_PT[Math.round(L.dir/22.5)%16]:null,''],['Vento',nf(L.ws,1),'m/s'],['Rajada',L.gust!=null?nf(L.gust,1):null,'m/s'],['Pressão',L.pres!=null?nf(L.pres,0):null,'hPa'],['T. ar',L.atmp!=null?nf(L.atmp,1):null,'°C'],['TSM',L.sst!=null?nf(L.sst,1):null,'°C'],['Corrente',L.cur!=null?nf(L.cur,2):null,'m/s']];
+    var h='';items.forEach(function(x){if(x[1]==null)return;h+='<div class="kpi"><div class="k">'+x[0]+'</div><div class="v">'+x[1]+'<small>'+x[2]+'</small></div></div>';});
+    document.getElementById('pn-kpis').innerHTML='<div class="kpi" style="grid-column:1/-1;padding-block:8px"><div class="k">Última leitura válida do recorte · '+fdt(L.t)+'</div></div>'+h+(S.id==='bmo'?'<div class="kpi qc"><div class="k">Controle de qualidade</div><p>Fator de rajada (rajada ÷ vento médio) coerente, de 1,3 a 1,4, com vento acima de 2 m/s. Abaixo disso (41% dos registros) ele dispara, e o vento médio parece subestimado. A rajada desta leitura deve ser lida com cautela.</p></div>':'');
+  }
+  function tip(box){var t=box.querySelector('.tip');if(!t){t=document.createElement('div');t.className='tip';box.appendChild(t);}return t;}
+  function ts(S){
+    var host=document.getElementById('ts'),M=META[met];host.innerHTML='';
+    document.getElementById('ts-t').textContent=M.t;
+    document.getElementById('ts-c').textContent='Média diária'+(met==='hs'?' e máximo diário':' e máximo diário')+' ('+M.u+'). Interrupções maiores que 3 dias ficam em branco.';
+    document.getElementById('ts-l').innerHTML='<span><i></i>Média diária</span><span><i class="mx"></i>Máximo diário</span>';
+    var A=daily(S,met);var W=host.clientWidth||600,H=Math.max(200,Math.min(300,W*.32));
+    var m={l:38,r:10,t:10,b:24},iw=W-m.l-m.r,ih=H-m.t-m.b;
+    var svg=el('svg',{viewBox:'0 0 '+W+' '+H,role:'img','aria-label':M.t+' diária, '+S.name},host);
+    var d0=A[0].d,d1=A[A.length-1].d,ymax=0;A.forEach(function(a){if(a.max>ymax)ymax=a.max;});
+    var step=ymax>12?5:ymax>6?2:1;ymax=Math.ceil(ymax/step)*step;
+    function X(d){return m.l+(d-d0)/(d1-d0||1)*iw;}function Y(v){return m.t+ih-v/ymax*ih;}
+    for(var v=0;v<=ymax;v+=step){el('line',{x1:m.l,x2:W-m.r,y1:Y(v),y2:Y(v),class:'gl'},svg);var tx=el('text',{x:m.l-6,y:Y(v)+4,'text-anchor':'end'},svg);tx.textContent=v;}
+    var y0=dt(d0*1440).getUTCFullYear(),seen={};
+    for(var d=d0;d<=d1;d++){var dd=dt(d*1440);if(dd.getUTCDate()===1){var key=dd.getUTCFullYear()+'-'+dd.getUTCMonth();var nm=A.length>200?dd.getUTCMonth()%3===0:true;if(nm&&!seen[key]){seen[key]=1;var x=X(d);if(x<W-m.r-20){var t=el('text',{x:x,y:H-6,'text-anchor':'middle'},svg);t.textContent=MO[dd.getUTCMonth()]+(dd.getUTCMonth()===0||Object.keys(seen).length===1?" '"+String(dd.getUTCFullYear()).slice(2):'');}}}}
+    function path(k){var s='',prev=null;A.forEach(function(a){s+=(prev==null||a.d-prev>3?'M':'L')+X(a.d).toFixed(1)+' '+Y(a[k]).toFixed(1);prev=a.d;});return s;}
+    el('path',{d:path('max'),fill:'none',stroke:'var(--muted)','stroke-width':1.25,'stroke-dasharray':'3 3','stroke-linejoin':'round'},svg);
+    el('path',{d:path('mean'),fill:'none',stroke:'var(--accent)','stroke-width':2,'stroke-linejoin':'round'},svg);
+    var cl=el('line',{y1:m.t,y2:m.t+ih,stroke:'var(--muted)','stroke-width':1,opacity:0},svg),dot=el('circle',{r:4,fill:'var(--accent)',stroke:'var(--surface)','stroke-width':2,opacity:0},svg);
+    var box=host.parentNode,T=tip(box);
+    var ov=el('rect',{x:m.l,y:m.t,width:iw,height:ih,fill:'transparent',style:'cursor:crosshair'},svg);
+    function mv(e){var r=svg.getBoundingClientRect(),px=(e.clientX-r.left)*(W/r.width);var d=d0+(px-m.l)/iw*(d1-d0),best=A[0];A.forEach(function(a){if(Math.abs(a.d-d)<Math.abs(best.d-d))best=a;});
+      cl.setAttribute('x1',X(best.d));cl.setAttribute('x2',X(best.d));cl.setAttribute('opacity',1);dot.setAttribute('cx',X(best.d));dot.setAttribute('cy',Y(best.mean));dot.setAttribute('opacity',1);
+      T.innerHTML=fd(best.d*1440)+'<br>média '+nf(best.mean,M.n)+' '+M.u+' · máx '+nf(best.max,M.n)+' '+M.u;T.style.opacity=1;
+      var br=box.getBoundingClientRect(),lx=e.clientX-br.left+12,ty=e.clientY-br.top-44;if(lx+190>br.width)lx=e.clientX-br.left-200;T.style.left=lx+'px';T.style.top=Math.max(8,ty)+'px';}
+    function lv(){cl.setAttribute('opacity',0);dot.setAttribute('opacity',0);T.style.opacity=0;}
+    ov.addEventListener('pointermove',mv);ov.addEventListener('pointerleave',lv);ov.addEventListener('pointerdown',mv);
+  }
+  function rose(S){
+    var host=document.getElementById('rose');host.innerHTML='';
+    var W=Math.min(host.clientWidth||340,420),H=W,cx=W/2,cy=H/2,R=W/2-26;
+    var cnt=new Array(16).fill(0),sum=new Array(16).fill(0),n=0;
+    for(var i=0;i<S.t.length;i++){var d=S.dir[i],h=S.hs[i];if(d==null||h==null)continue;var k=Math.floor(((d%360)+11.25)/22.5)%16;cnt[k]++;sum[k]+=h;n++;}
+    var pc=cnt.map(function(c){return c/n*100;}),pm=Math.max.apply(null,pc),top=Math.ceil(pm/5)*5||5;
+    var mean=cnt.map(function(c,k){return c?sum[k]/c:0;}),mmax=Math.max.apply(null,mean),mmin=Math.min.apply(null,mean.filter(function(x){return x>0;}));
+    var svg=el('svg',{viewBox:'0 0 '+W+' '+H,role:'img','aria-label':'Rosa de direção das ondas, '+S.name,style:'max-width:'+W+'px;margin:0 auto'},host);
+    [0.5,1].forEach(function(f){el('circle',{cx:cx,cy:cy,r:R*f,fill:'none',class:'gl'},svg);var t=el('text',{x:cx+3,y:cy-R*f+11},svg);t.textContent=Math.round(top*f)+'%';});
+    var box=host.parentNode,T=tip(box);
+    for(var k=0;k<16;k++){
+      var a0=(k*22.5-11.25+1)*Math.PI/180,a1=(k*22.5+11.25-1)*Math.PI/180,r=R*pc[k]/top;
+      function P(a,rr){return (cx+rr*Math.sin(a)).toFixed(1)+' '+(cy-rr*Math.cos(a)).toFixed(1);}
+      var op=mmax>mmin?.35+.65*(mean[k]-mmin)/(mmax-mmin):1;
+      var w=el('path',{d:'M'+cx+' '+cy+' L'+P(a0,r)+' A'+r+' '+r+' 0 0 1 '+P(a1,r)+' Z',fill:'var(--accent)','fill-opacity':cnt[k]?op:0,stroke:'var(--surface)','stroke-width':1.5},svg);
+      (function(k,w){function show(e){T.innerHTML='de '+DIRS_PT[k]+' ('+Math.round(k*22.5)+'°)<br>'+nf(pc[k],1)+'% dos registros<br>Hs média '+nf(mean[k],2)+' m';T.style.opacity=1;var br=box.getBoundingClientRect();var lx=e.clientX-br.left+12;if(lx+170>br.width)lx=e.clientX-br.left-170;T.style.left=lx+'px';T.style.top=Math.max(8,e.clientY-br.top-50)+'px';}
+        w.addEventListener('pointermove',show);w.addEventListener('pointerdown',show);w.addEventListener('pointerleave',function(){T.style.opacity=0;});})(k,w);
+    }
+    [['N',0],['L',90],['S',180],['O',270]].forEach(function(c){var a=c[1]*Math.PI/180;var t=el('text',{x:cx+(R+14)*Math.sin(a),y:cy-(R+14)*Math.cos(a)+4,'text-anchor':'middle',style:'fill:var(--ink)'},svg);t.textContent=c[0];});
+    var lg=document.createElement('div');lg.className='legend';lg.innerHTML='<span>Mais clara: Hs média menor ('+nf(mmin,1)+' m) · mais escura: maior ('+nf(mmax,1)+' m)</span>';host.appendChild(lg);
+  }
+  function monthly(S){
+    var g={};
+    for(var i=0;i<S.t.length;i++){var h=S.hs[i];if(h==null)continue;var d=dt(S.t[i]);var k=d.getUTCFullYear()*100+d.getUTCMonth();(g[k]=g[k]||[]).push(h);}
+    return Object.keys(g).map(Number).sort(function(a,b){return a-b;}).filter(function(k){return g[k].length>=40;}).map(function(k){var a=g[k];return {k:k,y:Math.floor(k/100),m:k%100,n:a.length,p10:q(a,.1),p25:q(a,.25),p50:q(a,.5),p75:q(a,.75),p90:q(a,.9),mean:a.reduce(function(s,x){return s+x;},0)/a.length};});
+  }
+  function box(S){
+    var host=document.getElementById('box');host.innerHTML='';var B=monthly(S);
+    var W=host.clientWidth||340,H=Math.max(200,Math.min(300,W*.62)),m={l:34,r:6,t:10,b:30},iw=W-m.l-m.r,ih=H-m.t-m.b;
+    var svg=el('svg',{viewBox:'0 0 '+W+' '+H,role:'img','aria-label':'Hs por mês, '+S.name},host);
+    var ym=0;B.forEach(function(b){if(b.p90>ym)ym=b.p90;});ym=Math.ceil(ym);
+    function Y(v){return m.t+ih-v/ym*ih;}
+    for(var v=0;v<=ym;v++){el('line',{x1:m.l,x2:W-m.r,y1:Y(v),y2:Y(v),class:'gl'},svg);var t=el('text',{x:m.l-6,y:Y(v)+4,'text-anchor':'end'},svg);t.textContent=v;}
+    var bw=iw/B.length,w=Math.max(4,Math.min(26,bw*.6)),T=tip(host.parentNode),bx=host.parentNode;
+    B.forEach(function(b,i){
+      var x=m.l+bw*(i+.5);
+      el('line',{x1:x,x2:x,y1:Y(b.p90),y2:Y(b.p10),stroke:'var(--muted)','stroke-width':1.25},svg);
+      el('rect',{x:x-w/2,y:Y(b.p75),width:w,height:Math.max(1,Y(b.p25)-Y(b.p75)),rx:2,fill:'var(--accent)','fill-opacity':.55},svg);
+      el('line',{x1:x-w/2,x2:x+w/2,y1:Y(b.p50),y2:Y(b.p50),stroke:'var(--accent)','stroke-width':2.5},svg);
+      if(B.length<=14||i%Math.ceil(B.length/10)===0){var tt=el('text',{x:x,y:H-14,'text-anchor':'middle'},svg);tt.textContent=MO[b.m];var t2=el('text',{x:x,y:H-3,'text-anchor':'middle'},svg);t2.textContent="'"+String(b.y).slice(2);}
+      var hit=el('rect',{x:x-bw/2,y:m.t,width:bw,height:ih,fill:'transparent'},svg);
+      function show(e){T.innerHTML=MO[b.m]+'/'+b.y+' · '+b.n+' reg.<br>mediana '+nf(b.p50,2)+' m<br>P25–P75 '+nf(b.p25,2)+'–'+nf(b.p75,2)+' m<br>P10–P90 '+nf(b.p10,2)+'–'+nf(b.p90,2)+' m';T.style.opacity=1;var br=bx.getBoundingClientRect();var lx=e.clientX-br.left+12;if(lx+170>br.width)lx=e.clientX-br.left-170;T.style.left=lx+'px';T.style.top=Math.max(8,e.clientY-br.top-70)+'px';}
+      hit.addEventListener('pointermove',show);hit.addEventListener('pointerdown',show);hit.addEventListener('pointerleave',function(){T.style.opacity=0;});
+    });
+    var h='<table><tr><th style="text-align:left">Mês</th><th>Reg.</th><th>P25</th><th>Mediana</th><th>P75</th><th>P90</th></tr>';
+    B.forEach(function(b){h+='<tr><td style="text-align:left">'+MO[b.m]+'/'+b.y+'</td><td>'+b.n+'</td><td>'+nf(b.p25,2)+'</td><td>'+nf(b.p50,2)+'</td><td>'+nf(b.p75,2)+'</td><td>'+nf(b.p90,2)+'</td></tr>';});
+    document.getElementById('pn-tbl').innerHTML=h+'</table>';
+  }
+  function render(){var S=D[cur];tabs();meta(S);kpis(S);ts(S);rose(S);box(S);}
+  document.querySelectorAll('.seg button').forEach(function(b){b.onclick=function(){met=b.dataset.m;document.querySelectorAll('.seg button').forEach(function(x){x.setAttribute('aria-pressed',x===b);});ts(D[cur]);};});
+  var rt;window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(function(){if(D){ts(D[cur]);rose(D[cur]);box(D[cur]);}},120);});
+  fetch('data.json').then(function(r){return r.json();}).then(function(j){D=j;render();}).catch(function(){document.getElementById('pn').insertAdjacentHTML('beforeend','<p class="pn-note">Não foi possível carregar os dados.</p>');});
+})();
+</script>
+<script>
+(function(){var links=[].slice.call(document.querySelectorAll('#secnav a[href^="#"]')),map={};
+links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+function set(id){links.forEach(function(a){if(a===map[id])a.setAttribute('aria-current','true');else a.removeAttribute('aria-current');});}
+if(!('IntersectionObserver' in window))return;
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&map[e.target.id])set(e.target.id);});},{rootMargin:'-30% 0px -60% 0px'});
+Object.keys(map).forEach(function(id){var s=document.getElementById(id);if(s)io.observe(s);});
+})();
+</script>
+<script>
+(function(){var recs=document.querySelector('.recs');if(!recs)return;
+var orig=[].slice.call(recs.children);
+var wrap=document.createElement('div');wrap.className='recs-wrap';recs.parentNode.insertBefore(wrap,recs);wrap.appendChild(recs);
+recs.classList.add('marquee');
+orig.forEach(function(c){var k=c.cloneNode(true);k.setAttribute('aria-hidden','true');recs.appendChild(k);});
+recs.style.setProperty('--dur',(orig.length*16)+'s');
+var ctl=document.createElement('div');ctl.className='rec-ctl';
+var b=document.createElement('button');b.type='button';b.textContent='Pausar rolagem';b.setAttribute('aria-pressed','false');
+b.onclick=function(){var p=wrap.classList.toggle('paused');b.textContent=p?'Retomar rolagem':'Pausar rolagem';b.setAttribute('aria-pressed',String(p));};
+ctl.appendChild(b);wrap.parentNode.insertBefore(ctl,wrap.nextSibling);
+})();
+</script>
+</body>
+</html>
