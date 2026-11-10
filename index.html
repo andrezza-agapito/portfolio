@@ -69,7 +69,17 @@ h1,h2,h3{font-family:var(--font-display);line-height:1.08;text-wrap:balance;marg
 .record figcaption{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:10px 14px;border-top:1px solid var(--line)}
 .record{margin-inline:0}
 .hero-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(24px,4vw,48px);align-items:start}
+/* hero em teal, texto branco */
+.wrap>.hero{position:relative;padding-bottom:clamp(36px,5vw,64px);background:var(--bt);box-shadow:0 0 0 100vmax var(--bt);clip-path:inset(0 -100vmax)}
+.hero .label,.hero h1,.hero h1 .h1sub,.hero p.lead,.hero p.lead b,.hero p.lead a{color:#fff}
+.hero p.lead a{text-decoration-thickness:1.5px}
+.hero .record .label{color:var(--muted)}
+.hero .tags li{background:transparent;border-color:rgba(255,255,255,.7);color:#fff}
 .hero-copy{min-width:0}
+.hero-wide{margin-top:clamp(20px,3vw,32px)}
+.hero .hero-wide p.lead{max-width:none;margin-top:14px}
+.hero .hero-wide .tags{margin-top:24px}
+
 .hero .record{margin-top:0;border:1px solid var(--line);border-radius:4px;overflow:hidden}
 .record img{display:block;width:100%;height:auto}
 @media (max-width:860px){.hero-grid{grid-template-columns:minmax(0,1fr)}.hero .record{margin-top:32px}}
@@ -254,11 +264,6 @@ details.code .cap{font-size:13px;color:var(--muted);margin:0 0 6px;max-width:70c
     <p class="label">Oceanógrafa · Análise de dados e IA</p>
     <h1>Dado é decisão.<span class="h1sub">Seja na terra ou no mar.</span></h1>
     <p class="lead">Sou oceanógrafa (UNIVALI), mestre em Engenharia de Produção (UFF) e especialista em Gestão de Projetos (FGV).</p>
-    <p class="lead" style="margin-top:14px">Em <b>10 anos no IEAPM</b>, na Marinha, comecei como ajudante de divisão, monitorando ondas com radar náutico. Assumi a divisão e o projeto, implantei o escritório de projetos (que virou minha <a href="dissertacao.html">dissertação de mestrado</a>) e terminei como assessora do Diretor.</p>
-    <p class="lead" style="margin-top:14px">Depois levei esse olhar para a consultoria de processos na Petrobras e para os painéis de Power BI e IA aplicada de grandes operações, como <a href="#total">Total e Wilson Sons</a>.</p>
-    <ul class="tags" aria-label="Competências">
-      <li>Séries temporais</li><li>Ondas e correntes</li><li>Radar náutico X-band</li><li>Power BI e DAX</li><li>MATLAB</li><li>PMBOK</li>
-    </ul>
 </div>
     <figure class="record">
       <img src="img/wamos-cabo-frio-2010.jpg" width="800" height="416" alt="Tela do software WaMoS no Farol de Cabo Frio com altura significativa de 2,1 m, período de pico de 12,2 s e espectro direcional de ondas">
@@ -267,6 +272,13 @@ details.code .cap{font-size:13px;color:var(--muted);margin:0 0 6px;max-width:70c
         <span class="label">Hs 2,1 m · Tp 12,2 s · λp 227 m · θp 151°</span>
       </figcaption>
     </figure>
+    </div>
+    <div class="hero-wide">
+    <p class="lead">Em <b>10 anos no IEAPM</b>, na Marinha, comecei como ajudante de divisão, monitorando ondas com radar náutico. Assumi a divisão e o projeto, implantei o escritório de projetos (que virou minha <a href="dissertacao.html">dissertação de mestrado</a>) e terminei como assessora do Diretor.</p>
+    <p class="lead">Depois levei esse olhar para a consultoria de processos na Petrobras e para os painéis de Power BI e IA aplicada de grandes operações, como <a href="#total">Total e Wilson Sons</a>.</p>
+    <ul class="tags" aria-label="Competências">
+      <li>Séries temporais</li><li>Ondas e correntes</li><li>Radar náutico X-band</li><li>Power BI e DAX</li><li>MATLAB</li><li>PMBOK</li>
+    </ul>
     </div>
   </header>
 
